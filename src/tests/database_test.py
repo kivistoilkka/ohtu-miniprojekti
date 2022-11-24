@@ -16,7 +16,6 @@ class TestDatabase(unittest.TestCase):
         cursor = self.connection.cursor()
 
         data = cursor.execute("SELECT id, author, title, year, publisher, bib_key FROM bookreferences").fetchall()
-        #self.assertEqual(self.book_reference.get_data(self.connection), [])
         self.assertEqual(data, [])
 
     
