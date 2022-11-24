@@ -1,39 +1,42 @@
 import os 
 import sqlite3
 
+class Database:
+    def __init__(self):
+        pass
 
-def drop_tables(connection):
-    cursor = connection.cursor()
+    def drop_tables(self, connection):
+        cursor = connection.cursor()
 
-    cursor.execute('''
-        drop table if exists bookreferences;
-    ''')
+        cursor.execute('''
+            drop table if exists bookreferences;
+        ''')
 
-    connection.commit()
-
-
-def create_tables(connection):
-    cursor = connection.cursor()
-
-    cursor.execute('''
-        create table bookreferences (
-            id integer primary key,
-            author text,
-            title text,
-            year integer,
-            publisher text,
-            bib_key text
-        );
-    ''')
-
-    connection.commit()
-
-def get_database_connection():
-    dirname = os.path.dirname(__file__)
-    connection = sqlite3.connect(os.path.join(dirname, "..", "data", "testi.db"))
-    return connection
+        connection.commit()
 
 
-def initialize_database(connection):
-    drop_tables(connection)
-    create_tables(connection)
+    def create_tables(self, connection):
+        cursor = connection.cursor()
+
+        cursor.execute('''
+            create table bookreferences (
+                id integer primary key,
+                author text,
+                title text,
+                year integer,
+                publisher text,
+                bib_key text
+            );
+        ''')
+
+        connection.commit()
+
+    def get_database_connection(self):
+        dirname = os.path.dirname(__file__)
+        connection = sqlite3.connect(os.path.join(dirname, "..", "data", "testi.db"))
+        return connection
+
+
+    def initialize_database(self, connection):
+        self.drop_tables(connection)
+        self.create_tables(connection)

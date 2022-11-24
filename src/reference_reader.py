@@ -1,7 +1,7 @@
 
 class ReferenceReader:
 
-    def ref_reader():
+    def ref_reader(self):
         author = input("Author:")
         title = input("Title:")
         year = int(input("Year:"))
