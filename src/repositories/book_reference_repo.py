@@ -10,9 +10,9 @@ class BookReference:
         return data
 
 
-    def add_to_table(connection):
+    def add_to_table(connection, list):
         cursor = connection.cursor()
 
-        cursor.execute("INSERT INTO bookreference (author, title, year, publisher, bib_key) VALUES (?, ?, ?, ?, ?)", ReferenceReader.ref_reader())
+        cursor.execute("INSERT INTO bookreference (author, title, year, publisher, bib_key) VALUES (?, ?, ?, ?, ?)", list)
 
 

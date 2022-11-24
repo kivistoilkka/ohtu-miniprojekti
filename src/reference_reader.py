@@ -1,9 +1,7 @@
 
 class ReferenceReader:
-    def __init__(self):
-        pass
 
-    def ref_reader(self):
+    def ref_reader():
         author = input("Author:")
         title = input("Title:")
         year = int(input("Year:"))
