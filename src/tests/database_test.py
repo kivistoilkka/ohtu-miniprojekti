@@ -10,12 +10,11 @@ class TestDatabase(unittest.TestCase):
         self.connection = sqlite3.connect(os.path.join(dirname, "testi.db"))
         self.book_reference = BookReference
 
-    def test_initialize_database_creates_new_tables(self):
+    def test_initialize_database_creates_new_tables_with_correct_columns(self):
         initialize_database(self.connection)
         cursor = self.connection.cursor()
 
         data = cursor.execute("SELECT id, author, title, year, publisher, bib_key FROM bookreferences").fetchall()
-        #self.assertEqual(self.book_reference.get_data(self.connection), [])
         self.assertEqual(data, [])
 
     
