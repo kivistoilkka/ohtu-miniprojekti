@@ -4,8 +4,7 @@ class BookReference:
     def get_data(connection):
         cursor = connection.cursor()
 
-        data = cursor.execute('''
-            select * from bookreference;''').fetchall()
+        data = cursor.execute("SELECT * FROM bookreferences").fetchall()
 
         return data
 
@@ -13,6 +12,6 @@ class BookReference:
     def add_to_table(connection, list):
         cursor = connection.cursor()
 
-        cursor.execute("INSERT INTO bookreference (author, title, year, publisher, bib_key) VALUES (?, ?, ?, ?, ?)", list)
+        cursor.execute("INSERT INTO bookreferences (author, title, year, publisher, bib_key) VALUES (?, ?, ?, ?, ?)", list)
 
 
