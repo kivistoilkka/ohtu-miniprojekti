@@ -29,7 +29,20 @@ class UI:
     def view_ref(self):
         
         data = self.app.book_reference_repo.get_data(self.app.connection)
-        print(data)
+        
+        for ref in data:
+            author = ref[1]
+            title = ref[2]
+            publisher = ref[4]
+
+            if len(author) > 15:
+                author = ref[1][:11] + "..."
+            if len(title) > 15:
+                title = ref[2][:11] + "..."
+            if len(publisher) > 15:
+                publisher = ref[4][:11] + "..."
+
+            print(f"Author: {author:15} | Title: {title:15} | Year: {ref[3]:4} | Publisher: {publisher:15} | Key: {ref[5]} \n")
     
     def add_ref(self):
         selection = input("Haluatko luoda uuden tietokannan (kyllä/ei)? ")
