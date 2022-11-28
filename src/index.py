@@ -2,6 +2,7 @@ from database import Database
 from repositories.book_reference_repo import BookReference
 from app import App
 from reference_reader import ReferenceReader
+from ui.ui import UI
 
 def main():
     db = Database()
@@ -9,8 +10,10 @@ def main():
     reference_reader = ReferenceReader()
     book_reference_repo = BookReference()
     app = App(connection, book_reference_repo, db, reference_reader)
+    ui = UI(app)
+    
 
-    app.run()
+    ui.run()
 
 if __name__ == "__main__":
     main()
