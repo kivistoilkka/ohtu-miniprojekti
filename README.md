@@ -1,5 +1,7 @@
 # OhTu-miniprojekti
 
+![CI badge](https://github.com/kivistoilkka/ohtu-miniprojekti/workflows/CI/badge.svg)
+
 ## Dokumentaatio
 
 [Product backlog](https://github.com/users/kivistoilkka/projects/1)
