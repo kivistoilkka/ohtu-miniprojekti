@@ -1,5 +1,6 @@
-import os 
+import os
 import sqlite3
+
 
 class Database:
     def __init__(self):
@@ -14,7 +15,6 @@ class Database:
 
         connection.commit()
 
-
     def create_tables(self, connection):
         cursor = connection.cursor()
 
@@ -25,7 +25,7 @@ class Database:
                 title text,
                 year integer,
                 publisher text,
-                bib_key text
+                bib_key text unique
             );
         ''')
 
@@ -33,9 +33,9 @@ class Database:
 
     def get_database_connection(self):
         dirname = os.path.dirname(__file__)
-        connection = sqlite3.connect(os.path.join(dirname, "..", "data", "testi.db"))
+        connection = sqlite3.connect(
+            os.path.join(dirname, "..", "data", "testi.db"))
         return connection
-
 
     def initialize_database(self, connection):
         self.drop_tables(connection)
