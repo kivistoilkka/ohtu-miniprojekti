@@ -13,5 +13,6 @@ class BookReference:
         cursor = connection.cursor()
 
         cursor.execute("INSERT INTO bookreferences (author, title, year, publisher, bib_key) VALUES (?, ?, ?, ?, ?)", list)
+        connection.commit()
 
 
