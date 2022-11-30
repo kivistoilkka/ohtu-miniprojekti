@@ -1,10 +1,12 @@
 import os
 import sqlite3
+from pathlib import Path
 
 
 class Database:
     def __init__(self):
-        pass
+        if not Path(f"{os.path.dirname(__file__)}/../data/").exists():
+            Path(f"{os.path.dirname(__file__)}/../data/").mkdir()
 
     def drop_tables(self, connection):
         cursor = connection.cursor()
