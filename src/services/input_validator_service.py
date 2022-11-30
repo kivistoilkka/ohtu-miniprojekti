@@ -9,6 +9,6 @@ class InputValidator():
             raise ValueError("Jokin vaadituista tiedoista puuttuu")
         try:
             reference_list[2] = int(reference_list[2])
-        except ValueError:
-            raise ValueError("Vuosi ei ollut kokonaisluku")
+        except ValueError as exc:
+            raise ValueError("Vuosi ei ollut kokonaisluku") from exc
         return reference_list
