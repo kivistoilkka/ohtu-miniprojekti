@@ -11,9 +11,9 @@ class TestBookReference(unittest.TestCase):
         self.db = Database()
         self.connection = sqlite3.connect(os.path.join(dirname, "testi.db"))
         self.db.initialize_database(self.connection)
-        self.book_reference = BookReference()
+        self.book_reference = BookReference(self.connection)
 
     def test_add_to_table_adds_data_to_database(self):
         data = ["Test Author", "Test it to the limit", 2022, "TestPublishing", "test22"]
-        self.book_reference.add_to_table(self.connection, data)
-        self.assertEqual(len(self.book_reference.get_data(self.connection)), 1)
+        self.book_reference.add_to_table(data)
+        self.assertEqual(len(self.book_reference.get_data()), 1)
