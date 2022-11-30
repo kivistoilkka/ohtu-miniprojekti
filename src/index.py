@@ -8,6 +8,7 @@ from ui.ui import UI
 def main():
     db = Database()
     connection = db.get_database_connection()
+    db.initialize_database(connection)
     reference_reader = ReferenceReader()
     book_reference_repo = BookReference()
     app = App(connection, book_reference_repo, db, reference_reader)
