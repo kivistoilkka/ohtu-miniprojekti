@@ -1,5 +1,3 @@
-from reference_reader import ReferenceReader
-
 class BookReference:
     def __init__(self, connection):
         self.connection = connection

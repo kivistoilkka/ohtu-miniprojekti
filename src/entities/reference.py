@@ -1,5 +1,5 @@
 class Reference:
-    def __init__(self, author:str, title:str, year:int, publisher:str, bib_key:str):
+    def __init__(self, author: str, title: str, year: int, publisher: str, bib_key: str):
         self.__author = author
         self.__title = title
         self.__year = year

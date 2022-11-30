@@ -6,25 +6,24 @@ class UI:
         self.app = app
         self.ref_service = reference_service
 
-    
     def run(self):
 
-        while(True):
-            options = int(input("Mitä haluat tehdä?\n Luoda tiedosto, paina 1\n Tarkastella luotuja viitteitä, paina 2\n Lisää uusi viite, paina 3 \n Sulje ohjelma, paina 4\n"))
+        while True:
+            options = int(input(
+                "Mitä haluat tehdä?\n Luoda tiedosto, paina 1\n Tarkastella luotuja viitteitä, paina 2\n Lisää uusi viite, paina 3 \n Sulje ohjelma, paina 4\n"))
 
             if options == 1:
                 self.create_file()
-        
+
             elif options == 2:
                 self.view_ref()
-        
+
             elif options == 3:
                 self.add_ref()
-            
+
             elif options == 4:
                 break
 
-        
     def create_file(self):
         pass
 
@@ -50,7 +49,7 @@ class UI:
         selection = input("Haluatko luoda uuden tietokannan (kyllä/ei)? ")
         if selection == "kyllä":
             self.app.db.create_tables(self.app.connection)
-        
+
         ref_list = self.app.reference_reader.ref_reader()
 
         ok = self.ref_service.add_reference(ref_list)

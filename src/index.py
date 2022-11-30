@@ -5,6 +5,7 @@ from reference_reader import ReferenceReader
 from ui.ui import UI
 from services.reference_service import ReferenceService
 
+
 def main():
     db = Database()
     connection = db.get_database_connection()
@@ -16,6 +17,7 @@ def main():
     
 
     ui.run()
+
 
 if __name__ == "__main__":
     main()
