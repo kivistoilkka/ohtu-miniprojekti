@@ -8,6 +8,8 @@
 
 - Käynnistä ohjelma projektikansiossa ohtu-miniprojekti komennolla python3 src/index.py
 
+- Ohjelmassa voi tällä hetkellä lisätä viitteitä komennolla 3 ja tarkastella lisättyjä viitteitä komennolla 2.
+
 
 
 ## Dokumentaatio
