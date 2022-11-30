@@ -12,6 +12,8 @@ python = "^3.8"
 pytest = "^7.2.0"
 coverage = "^6.5.0"
 robotframework = "^6.0.1"
+pylint = "^2.15.7"
+autopep8 = "^2.0.0"
 
 [build-system]
 requires = ["poetry-core"]

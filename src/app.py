@@ -4,4 +4,3 @@ class App:
         self.book_reference_repo = book_reference_repo
         self.db = db
         self.reference_reader = reference_reader
-        

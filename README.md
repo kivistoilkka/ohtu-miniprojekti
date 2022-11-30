@@ -2,6 +2,14 @@
 
 ![CI badge](https://github.com/kivistoilkka/ohtu-miniprojekti/workflows/CI/badge.svg)
 
+## Käyttöohje
+
+- Lataa projekti koneellesi
+
+- Käynnistä ohjelma projektikansiossa ohtu-miniprojekti komennolla python3 src/index.py
+
+
+
 ## Dokumentaatio
 
 [Product backlog](https://github.com/users/kivistoilkka/projects/1)
