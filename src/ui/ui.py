@@ -1,9 +1,10 @@
 from reference_reader import ReferenceReader
+from services.reference_service import ReferenceService
 
-
-class UI:
-    def __init__(self, app):
+class UI:    
+    def __init__(self, app, reference_service):
         self.app = app
+        self.ref_service = reference_service
 
     def run(self):
 
@@ -24,27 +25,26 @@ class UI:
                 break
 
     def create_file(self):
-        pass
+        print("Tiedoston luominen ei ole vielä mahdollista\n")
 
     def view_ref(self):
-
-        data = self.app.book_reference_repo.get_data(self.app.connection)
-
+        
+        data = self.ref_service.get_all_references()
+        
         for ref in data:
-            author = ref[1]
-            title = ref[2]
-            publisher = ref[4]
+            author = ref.author
+            title = ref.title
+            publisher = ref.publisher
 
             if len(author) > 15:
-                author = ref[1][:11] + "..."
+                author = author[:11] + "..."
             if len(title) > 15:
-                title = ref[2][:11] + "..."
+                title = title[:11] + "..."
             if len(publisher) > 15:
-                publisher = ref[4][:11] + "..."
+                publisher = publisher[:11] + "..."
 
-            print(
-                f"Author: {author:15} | Title: {title:15} | Year: {ref[3]:4} | Publisher: {publisher:15} | Key: {ref[5]} \n")
-
+            print(f"Author: {author:15} | Title: {title:15} | Year: {ref.year:4} | Publisher: {publisher:15} | Key: {ref.bib_key} \n")
+    
     def add_ref(self):
         selection = input("Haluatko luoda uuden tietokannan (kyllä/ei)? ")
         if selection == "kyllä":
@@ -52,5 +52,5 @@ class UI:
 
         ref_list = self.app.reference_reader.ref_reader()
 
-        self.app.book_reference_repo.add_to_table(
-            self.app.connection, ref_list)
+        ok = self.ref_service.add_reference(ref_list)
+        print(ok)

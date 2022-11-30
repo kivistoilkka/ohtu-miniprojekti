@@ -23,7 +23,7 @@ class TestReferenceService(unittest.TestCase):
                         2022, "TestPublishing", "test22"])
         ref_service = ReferenceService(repo)
         result = ref_service.add_reference(
-            "Test Author", "Test it to the limit", 2022, "TestPublishing", "test22")
+            ["Test Author", "Test it to the limit", 2022, "TestPublishing", "test22"])
         self.assertTrue(result)
 
     def test_all_references_from_database_with_one_reference_can_be_fetched(self):
