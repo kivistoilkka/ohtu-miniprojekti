@@ -25,7 +25,7 @@ class UI:
                 break
 
     def create_file(self):
-        pass
+        print("Tiedoston luominen ei ole vielä mahdollista\n")
 
     def view_ref(self):
         
