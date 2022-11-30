@@ -5,16 +5,9 @@ class ReferenceService:
     def __init__(self, repo):
         self.repo = repo
 
-    def add_reference(
-        self,
-        author:str,
-        title:str,
-        year:int,
-        publisher:str,
-        bib_key:str
-    ) -> bool:
+    def add_reference(self, list) -> bool:
         try:
-            self.repo.add_to_table([author, title, year, publisher, bib_key])
+            self.repo.add_to_table(list)
             return True
         except:
             return False
