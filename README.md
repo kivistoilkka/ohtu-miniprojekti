@@ -6,7 +6,9 @@
 
 - Lataa projekti koneellesi
 
-- Käynnistä ohjelma projektikansiossa ohtu-miniprojekti komennolla python3 src/index.py
+- Tee alustustoimenpisteet antamalla projektikansiossa komento `python3 src/build.py`. HUOM! Komento alustaa tietokannan, joten se tulee tehdä vain silloin, kun tietokannan haluaa tyhjentää.
+
+- Käynnistä ohjelma komennolla `python3 src/index.py`.
 
 - Ohjelmassa voi tällä hetkellä lisätä viitteitä komennolla 3 ja tarkastella lisättyjä viitteitä komennolla 2.
 

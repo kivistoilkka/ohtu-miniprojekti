@@ -11,7 +11,6 @@ from services.bibtex_generator_service import BibtexGeneratorService
 def main():
     db = Database()
     connection = db.get_database_connection()
-    db.initialize_database(connection)
     reference_reader = ReferenceReader()
     book_reference_repo = BookReference(connection)
     validator = InputValidator()
