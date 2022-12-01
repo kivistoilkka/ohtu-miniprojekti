@@ -1,13 +1,14 @@
 from entities.reference import Reference
 
-
 class ReferenceService:
-    def __init__(self, repo):
+    def __init__(self, repo, validator):
         self.repo = repo
+        self.validator = validator
 
     def add_reference(self, data) -> bool:
         try:
-            self.repo.add_to_table(data)
+            fixed_data = self.validator.validate(data)
+            self.repo.add_to_table(fixed_data)
             return True
         except:
             return False
