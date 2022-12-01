@@ -1,6 +1,16 @@
 class App:
-    def __init__(self, connection, book_reference_repo, db, reference_reader):
+    def __init__(self, connection, book_reference_repo, reference_service, db, bibtex_generator):
         self.connection = connection
         self.book_reference_repo = book_reference_repo
         self.db = db
-        self.reference_reader = reference_reader
+        self.ref_service = reference_service
+        self.bibtex_generator = bibtex_generator
+
+    def add_reference(self, ref_list):
+        self.ref_service.add_reference(ref_list)
+
+    def get_all_references(self):
+        return self.ref_service.get_all_references()
+
+    def create_bibtex_file(self, data, filename):
+        self.bibtex_generator.create_bibtex_file(data, filename)

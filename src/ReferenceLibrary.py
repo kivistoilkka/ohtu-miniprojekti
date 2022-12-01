@@ -5,7 +5,7 @@ from repositories.book_reference_repo import BookReference
 from app import App
 from ui.stub_ui import StubUI
 from services.reference_service import ReferenceService
-from reference_reader import ReferenceReader
+from ui.reference_reader import ReferenceReader
 
 
 class ReferenceLibrary:
