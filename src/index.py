@@ -15,7 +15,6 @@ def main():
     reference_service = ReferenceService(book_reference_repo)
     app = App(connection, book_reference_repo, db, reference_reader)
     ui = UI(app, reference_service)
-    
 
     ui.run()
 

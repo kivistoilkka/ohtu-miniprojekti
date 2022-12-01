@@ -5,9 +5,9 @@ class ReferenceService:
     def __init__(self, repo):
         self.repo = repo
 
-    def add_reference(self, list) -> bool:
+    def add_reference(self, data) -> bool:
         try:
-            self.repo.add_to_table(list)
+            self.repo.add_to_table(data)
             return True
         except:
             return False
