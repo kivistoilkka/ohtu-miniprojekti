@@ -1,5 +1,6 @@
 __pycache__
 *.db
+*.bib
 .pytest_cache
 htmlcov
 log.html
