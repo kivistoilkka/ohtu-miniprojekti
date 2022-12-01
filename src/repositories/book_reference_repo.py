@@ -10,11 +10,12 @@ class BookReference:
         return data
 
 
-    def add_to_table(self, list):
+    def add_to_table(self, data:list):
         cursor = self.connection.cursor()
 
-        cursor.execute("INSERT INTO bookreferences (author, title, year, publisher, bib_key) VALUES (?, ?, ?, ?, ?)", list)
+        cursor.execute(
+            "INSERT INTO bookreferences (author, title, year, publisher, bib_key)\
+            VALUES (?, ?, ?, ?, ?)",
+            data
+        )
         self.connection.commit()
-
-
-    
