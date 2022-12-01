@@ -10,3 +10,9 @@ class TestInputValidator(unittest.TestCase):
         ref_list = ["", "Test it to the limit",
                     2022, "TestPublishing", "test22"]
         self.assertRaises(ValueError, self.validator.validate, ref_list)
+
+    def test_validator_accepts_correct_list(self):
+        ref_list = ["Test Author", "Test it to the limit",
+                    2022, "TestPublishing", "test22"]
+        fixed_list = self.validator.validate(ref_list)
+        self.assertEqual(ref_list, fixed_list)

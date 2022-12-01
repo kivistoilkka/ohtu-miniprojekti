@@ -4,6 +4,7 @@ from app import App
 from reference_reader import ReferenceReader
 from ui.ui import UI
 from services.reference_service import ReferenceService
+from services.input_validator_service import InputValidator
 
 
 def main():
@@ -12,7 +13,8 @@ def main():
     db.initialize_database(connection)
     reference_reader = ReferenceReader()
     book_reference_repo = BookReference(connection)
-    reference_service = ReferenceService(book_reference_repo)
+    validator = InputValidator()
+    reference_service = ReferenceService(book_reference_repo, validator)
     app = App(connection, book_reference_repo, db, reference_reader)
     ui = UI(app, reference_service)
 
