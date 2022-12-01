@@ -12,16 +12,11 @@ class ReferenceLibrary:
     def __init__(self) -> None:
         pass
 
-    def add_reference(self):
-        author = "testi author"
-        title = "testi title"
-        year = 0000
-        publ = "testi publisher"
-        key = "abc"
+    def add_reference(self, author, title, year, publ, key):
+        #keywordilla Add Reference Values voi syöttää tälle metodille
+        #halutut parametrit
         self.ui.add_ref([author, title, year, publ, key])
 
-    def add_existing_reference(self):
-        pass
 
     def run(self):
         dirname = os.path.dirname(__file__)
@@ -35,3 +30,11 @@ class ReferenceLibrary:
         app = App(self.connection, self.book_reference,
                   self.db, self.reference_reader)
         self.ui = StubUI(app, self.reference_service)
+
+    def data_in_database_length_should_be(self, length):
+        #Logiikka tässä on, että voimme tarkistaa, onko tietokannassa nyt haluttu
+        #Viite tarkistamalla datan pituuden
+        data = self.ui.reference_service.get_all_references()
+        if len(data) != int(length):
+            raise AssertionError(
+                f"There's something wrong, {len(data)} != {length}")
