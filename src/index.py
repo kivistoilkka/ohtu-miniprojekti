@@ -1,7 +1,6 @@
 from database import Database
 from repositories.book_reference_repo import BookReference
 from app import App
-from reference_reader import ReferenceReader
 from ui.ui import UI
 from services.reference_service import ReferenceService
 from services.input_validator_service import InputValidator
@@ -12,14 +11,13 @@ def main():
     db = Database()
     connection = db.get_database_connection()
     db.initialize_database(connection)
-    reference_reader = ReferenceReader()
     book_reference_repo = BookReference(connection)
     validator = InputValidator()
     reference_service = ReferenceService(book_reference_repo, validator)
     bibtex_generator = BibtexGeneratorService()
-    app = App(connection, book_reference_repo, db, reference_reader)
-    ui = UI(app, reference_service, bibtex_generator)
+    app = App(connection, book_reference_repo, reference_service, db, bibtex_generator)
 
+    ui = UI(app)
     ui.run()
 
 

@@ -1,8 +1,9 @@
+from ui.reference_reader import ReferenceReader
+
 class UI:
-    def __init__(self, app, reference_service, bibtex_generator):
+    def __init__(self, app):
         self.app = app
-        self.ref_service = reference_service
-        self.bibtex_generator = bibtex_generator
+        self.reference_reader = ReferenceReader()
 
     def run(self):
         while True:
@@ -29,9 +30,9 @@ Sulje ohjelma, paina 4\n"
     def create_file(self):
         filename = input("Minkä nimisen tiedoston haluat luoda?")
 
-        data = self.ref_service.get_all_references()
+        data = self.app.get_all_references()
 
-        self.bibtex_generator.create_bibtex_file(data, filename)
+        self.app.create_bibtex_file(data, filename)
 
     # def create_database(self):
     #     selection = input("Haluatko luoda uuden tietokannan (kyllä/ei)? ")
@@ -40,7 +41,7 @@ Sulje ohjelma, paina 4\n"
 
     def view_ref(self):
 
-        data = self.ref_service.get_all_references()
+        data = self.app.get_all_references()
 
         for ref in data:
             author = ref.author
@@ -59,5 +60,5 @@ Sulje ohjelma, paina 4\n"
             )
 
     def add_ref(self):
-        ref_list = self.app.reference_reader.ref_reader()
-        self.ref_service.add_reference(ref_list)
+        ref_list = self.reference_reader.ref_reader()
+        self.app.add_reference(ref_list)
