@@ -1,10 +1,10 @@
 class UI:
-    def __init__(self, app, reference_service):
+    def __init__(self, app, reference_service, bibtex_generator):
         self.app = app
         self.ref_service = reference_service
+        self.bibtex_generator = bibtex_generator
 
     def run(self):
-
         while True:
             options = int(input(
                 "Mitä haluat tehdä?\n\
@@ -27,7 +27,11 @@ Sulje ohjelma, paina 4\n"
                 break
 
     def create_file(self):
-        print("Tiedoston luominen ei ole vielä mahdollista\n")
+        filename = input("Minkä nimisen tiedoston haluat luoda?")
+
+        data = self.ref_service.get_all_references()
+
+        self.bibtex_generator.create_bibtex_file(data, filename)
 
     # def create_database(self):
     #     selection = input("Haluatko luoda uuden tietokannan (kyllä/ei)? ")
