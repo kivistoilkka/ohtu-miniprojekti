@@ -6,6 +6,7 @@ authors = ["Nikita Essine <nikita.essine@helsinki.fi>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+invoke = "^1.7.3"
 
 
 [tool.poetry.group.dev.dependencies]
