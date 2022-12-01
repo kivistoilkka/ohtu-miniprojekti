@@ -12,9 +12,9 @@ class TestBookReference(unittest.TestCase):
         self.bibtex_generator = BibtexGeneratorService()
 
     def test_create_bibtex_file_creates_correct_file(self):
-        refs = [Reference("Test Author", "Test it to the limit", 2022, "TestPublishing", "test22")]
+        refs = [Reference("Yrjänä Änkyräinen", "Test it to the limit", 2022, "TestPublishing", "test22")]
         self.bibtex_generator.create_bibtex_file(refs, "test.bib")
 
-        correct_file = """@Book{test22,\n  author     = "Test Author",\n  title      = "Test it to the limit",\n  publisher  = "TestPublishing",\n  year       = 2022\n}\n\n"""
+        correct_file = """@Book{test22,\n  author     = "Yrj{\\"a}n{\\"a} {\\"A}nkyr{\\"a}inen",\n  title      = "Test it to the limit",\n  publisher  = "TestPublishing",\n  year       = 2022\n}\n\n"""
 
         self.assertEqual(self.TEST_FILE.open().read(), correct_file)
