@@ -28,4 +28,4 @@ class Reference:
 
     def __str__(self) -> str:
         return f"{self.__author}: {self.__title} ({self.__year}), {self.__publisher}. \
-            BibTeX key: {self.__bib_key}"
+BibTeX key: {self.__bib_key}"

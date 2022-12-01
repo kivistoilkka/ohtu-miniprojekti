@@ -2,16 +2,17 @@ import unittest
 from services.reference_service import ReferenceService
 from entities.reference import Reference
 
-
 class StubRepo:
-    def __init__(self, expected_list):
-        self.expected_list = expected_list
+    def __init__(self, expected_data, database_content):
+        self.expected_data = expected_data
+        self.database_content = database_content
 
-    def add_to_table(self, list):
-        return list == self.expected_list
+    def add_to_table(self, data):
+        self.database_content.append(data)
+        return data == self.expected_data
 
     def get_data(self):
-        return [(1, "Test Author", "Test it to the limit", 2022, "TestPublishing", "test22")]
+        return self.database_content
 
 
 class TestReferenceService(unittest.TestCase):
@@ -20,17 +21,32 @@ class TestReferenceService(unittest.TestCase):
 
     def test_valid_reference_can_be_added(self):
         repo = StubRepo(["Test Author", "Test it to the limit",
-                        2022, "TestPublishing", "test22"])
+                        2022, "TestPublishing", "test22"], [])
         ref_service = ReferenceService(repo)
         result = ref_service.add_reference(
             ["Test Author", "Test it to the limit", 2022, "TestPublishing", "test22"])
         self.assertTrue(result)
 
     def test_all_references_from_database_with_one_reference_can_be_fetched(self):
-        repo = StubRepo(["Test Author", "Test it to the limit",
-                        2022, "TestPublishing", "test22"])
+        repo = StubRepo([], [
+            (1, "Test Author", "Test it to the limit", 2022, "TestPublishing", "test22")
+        ])
         ref_service = ReferenceService(repo)
         expected_list = [Reference(
             "Test Author", "Test it to the limit", 2022, "TestPublishing", "test22")]
         result = ref_service.get_all_references()
         self.assertEqual(str(result[0]), str(expected_list[0]))
+    
+    def test_all_references_from_database_with_two_references_can_be_fetched(self):
+        repo = StubRepo([], [
+            (1, "Test Author", "Test it to the limit", 2022, "TestPublishing", "test22"),
+            (2, "Stanley", "This is a story about a man named Stanley", 2013, "GC", "stan13")
+        ])
+        ref_service = ReferenceService(repo)
+        expected_list = [
+            Reference("Test Author", "Test it to the limit", 2022, "TestPublishing", "test22"),
+            Reference("Stanley", "This is a story about a man named Stanley", 2013, "GC", "stan13")
+        ]
+        result = ref_service.get_all_references()
+        for i, ref in enumerate(result):
+            self.assertEqual(str(ref), str(expected_list[i]))
