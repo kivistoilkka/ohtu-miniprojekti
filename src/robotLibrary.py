@@ -1,8 +1,7 @@
-from reference_service import ReferenceService
 
 class ReferenceServiceLibrary:
     def __init__(self) -> None:
-        self.referenceservice = ReferenceService()
+        pass
     
     def add_reference(self):
         author = "testi author"
