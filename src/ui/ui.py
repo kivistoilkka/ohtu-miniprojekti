@@ -29,6 +29,11 @@ Sulje ohjelma, paina 4\n"
     def create_file(self):
         print("Tiedoston luominen ei ole vielä mahdollista\n")
 
+    # def create_database(self):
+    #     selection = input("Haluatko luoda uuden tietokannan (kyllä/ei)? ")
+    #     if selection == "kyllä":
+    #         self.app.db.create_tables(self.app.connection)
+
     def view_ref(self):
 
         data = self.ref_service.get_all_references()
@@ -50,8 +55,5 @@ Sulje ohjelma, paina 4\n"
             )
 
     def add_ref(self):
-        selection = input("Haluatko luoda uuden tietokannan (kyllä/ei)? ")
-        if selection == "kyllä":
-            self.app.db.create_tables(self.app.connection)
         ref_list = self.app.reference_reader.ref_reader()
         self.ref_service.add_reference(ref_list)
