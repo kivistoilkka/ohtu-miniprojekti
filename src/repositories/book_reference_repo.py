@@ -19,3 +19,12 @@ class BookReference:
             data
         )
         self.connection.commit()
+    
+    def delete_from_table(self):
+        cursor = self.connection.cursor()
+
+        cursor.execute(
+            "DELETE FROM bookreferences WHERE id=2"
+        )
+
+        self.connection.commit()
