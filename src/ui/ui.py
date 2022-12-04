@@ -12,7 +12,7 @@ class UI:
 Luoda tiedosto, paina 1\n\
 Tarkastella luotuja viitteitä, paina 2\n\
 Lisää uusi viite, paina 3 \n\
-Poista viimeisin viite, paina 4 \n\
+Poista viite, paina 4 \n\
 Sulje ohjelma, paina 5\n"
             ))
 
