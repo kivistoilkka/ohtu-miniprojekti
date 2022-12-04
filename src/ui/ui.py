@@ -68,4 +68,8 @@ Sulje ohjelma, paina 5\n"
         self.app.add_reference(ref_list)
 
     def del_ref(self):
-        self.app.delete_reference()
+        
+        answer = input("Haluatko varmasti poistaa viitteen?(kyllä/en) ")
+        if answer == "kyllä":
+            self.app.delete_reference()
+        
