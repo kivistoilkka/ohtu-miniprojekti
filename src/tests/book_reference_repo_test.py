@@ -7,11 +7,10 @@ from repositories.book_reference_repo import BookReference
 
 class TestBookReference(unittest.TestCase):
     def setUp(self):
-        dirname = os.path.dirname(__file__)
-        self.db = Database()
-        self.connection = sqlite3.connect(os.path.join(dirname, "testi.db"))
-        self.db.initialize_database(self.connection)
-        self.book_reference = BookReference(self.connection)
+        self.db = Database(testing_environment=True)
+        self.connection = self.db.get_database_connection()
+        self.db.initialize_database()
+        self.book_reference = BookReference(self.db.get_database_connection())
 
     def test_add_to_table_adds_data_to_database(self):
         data = ["Test Author", "Test it to the limit", 2022, "TestPublishing", "test22"]
