@@ -26,7 +26,9 @@ Sulje ohjelma, paina 5\n"
                 self.add_ref()
 
             elif options == 4:
-                self.del_ref()
+                key = input("Anna avain:")
+
+                self.del_ref(key)
 
             elif options == 5:
                 break
@@ -67,9 +69,9 @@ Sulje ohjelma, paina 5\n"
         ref_list = self.reference_reader.ref_reader()
         self.app.add_reference(ref_list)
 
-    def del_ref(self):
+    def del_ref(self, key):
         
         answer = input("Haluatko varmasti poistaa viitteen?(kyllä/en) ")
         if answer == "kyllä":
-            self.app.delete_reference()
+            self.app.delete_reference(key)
         
