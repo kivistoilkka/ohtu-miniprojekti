@@ -9,11 +9,14 @@ class UI:
         while True:
             self.print_instructions()
 
-            options = {"1": self.create_file, "2": self.view_ref, "3": self.add_ref, "4": self.del_ref}
+            options = {
+                "1": self.create_file, "2": self.view_ref,
+                "3": self.add_ref, "4": self.del_ref
+            }
 
             option = input()
 
-            if option in options.keys():
+            if option in options:
                 options[option]()
             elif option == "5":
                 break
@@ -26,8 +29,8 @@ class UI:
         try:
             self.app.create_bibtex_file(data, filename)
             print("Tiedosto luotu!")
-        except Exception as e:
-            print(e + "\n")
+        except ValueError as error:
+            print(error + "\n")
 
     def print_instructions(self):
         instructions = ["Mitä haluat tehdä?",
@@ -73,24 +76,23 @@ class UI:
         key = input("Anna avain:")
 
         self.ref_to_delete(key)
-        
+
         answer = input("Haluatko varmasti poistaa viitteen?(kyllä/en) ")
 
         if answer == "kyllä":
             self.app.delete_reference(key)
-    
+
 
     def ref_to_delete(self, key):
 
         data = self.app.get_all_references()
         #print(data)
 
-        
+
         for ref in data:
             author = ref.author
             title = ref.title
             publisher = ref.publisher
-
 
             if len(author) > 15:
                 author = author[:11] + "..."
@@ -98,11 +100,8 @@ class UI:
                 title = title[:11] + "..."
             if len(publisher) > 15:
                 publisher = publisher[:11] + "..."
-            
+
             if key == ref.bib_key:
-
-
                 print(f"Author: {author:15} | Title: {title:15} | Year: {ref.year:4} \
                     | Publisher: {publisher:15} | Key: {ref.bib_key} \n"
                 )
-        
