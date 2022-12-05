@@ -4,9 +4,16 @@ from pathlib import Path
 
 
 class Database:
-    def __init__(self):
-        if not Path(f"{os.path.dirname(__file__)}/../data/").exists():
-            Path(f"{os.path.dirname(__file__)}/../data/").mkdir()
+    def __init__(self, testing_environment=False):
+        path = ""
+        dirname = os.path.dirname(__file__)
+        if testing_environment:
+            path = os.path.join(dirname, "tests", "test.db")
+        else:
+            if not Path(f"{os.path.dirname(__file__)}/../data/").exists():
+                Path(f"{os.path.dirname(__file__)}/../data/").mkdir()
+            path = os.path.join(dirname, "..", "data", "references.db")
+        self.connection = self._initialize_connection(path)
 
     def drop_tables(self, connection):
         cursor = connection.cursor()
@@ -33,12 +40,14 @@ class Database:
 
         connection.commit()
 
-    def get_database_connection(self):
-        dirname = os.path.dirname(__file__)
+    def _initialize_connection(self, path):
         connection = sqlite3.connect(
-            os.path.join(dirname, "..", "data", "testi.db"))
+            os.path.join(path))
         return connection
 
-    def initialize_database(self, connection):
-        self.drop_tables(connection)
-        self.create_tables(connection)
+    def get_database_connection(self):
+        return self.connection
+
+    def initialize_database(self):
+        self.drop_tables(self.connection)
+        self.create_tables(self.connection)

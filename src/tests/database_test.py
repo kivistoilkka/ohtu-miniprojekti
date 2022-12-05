@@ -8,12 +8,12 @@ from repositories.book_reference_repo import BookReference
 class TestDatabase(unittest.TestCase):
     def setUp(self):
         dirname = os.path.dirname(__file__)
-        self.db = Database()
-        self.connection = sqlite3.connect(os.path.join(dirname, "testi.db"))
+        self.db = Database(testing_environment=True)
+        self.connection = self.db.get_database_connection() #sqlite3.connect(os.path.join(dirname, "testi.db"))
         self.book_reference = BookReference
 
     def test_initialize_database_creates_new_tables(self):
-        self.db.initialize_database(self.connection)
+        self.db.initialize_database()
         cursor = self.connection.cursor()
 
         data = cursor.execute(
