@@ -10,7 +10,7 @@ class ReferenceService:
             fixed_data = self.validator.validate(data)
             self.repo.add_to_table(fixed_data)
             return True
-        except ValueError:
+        except Exception:
             return False
 
     def _create_reference_object(
