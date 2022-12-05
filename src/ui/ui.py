@@ -7,30 +7,15 @@ class UI:
 
     def run(self):
         while True:
-            options = int(input(
-                "Mitä haluat tehdä?\n\
-Luoda tiedosto, paina 1\n\
-Tarkastella luotuja viitteitä, paina 2\n\
-Lisää uusi viite, paina 3 \n\
-Poista viite, paina 4 \n\
-Sulje ohjelma, paina 5\n"
-            ))
+            self.print_instructions()
 
-            if options == 1:
-                self.create_file()
+            options = {"1": self.create_file, "2": self.view_ref, "3": self.add_ref, "4": self.del_ref}
 
-            elif options == 2:
-                self.view_ref()
+            option = input()
 
-            elif options == 3:
-                self.add_ref()
-
-            elif options == 4:
-                key = input("Anna avain:")
-
-                self.del_ref(key)
-
-            elif options == 5:
+            if option in options.keys():
+                options[option]()
+            elif option == "5":
                 break
 
     def create_file(self):
@@ -43,6 +28,17 @@ Sulje ohjelma, paina 5\n"
             print("Tiedosto luotu!")
         except Exception as e:
             print(e + "\n")
+
+    def print_instructions(self):
+        instructions = ["Mitä haluat tehdä?",
+                        "Luoda tiedosto, paina 1",
+                        "Tarkastella luotuja viitteitä, paina 2",
+                        "Lisää uusi viite, paina 3",
+                        "Poista viite, paina 4",
+                        "Sulje ohjelma, paina 5"]
+
+        for instruction in instructions:
+            print(instruction)
 
     # def create_database(self):
     #     selection = input("Haluatko luoda uuden tietokannan (kyllä/ei)? ")
@@ -73,7 +69,8 @@ Sulje ohjelma, paina 5\n"
         ref_list = self.reference_reader.ref_reader()
         self.app.add_reference(ref_list)
 
-    def del_ref(self, key):
+    def del_ref(self):
+        key = input("Anna avain:")
 
         self.ref_to_delete(key)
         
