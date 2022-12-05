@@ -28,7 +28,6 @@ class ReferenceLibrary:
         #halutut parametrit
         self.ui.add_ref([author, title, year, publ, key])
 
-
     # def run(self):
     #     # dirname = os.path.dirname(__file__)
     #     # self.db = Database()
