@@ -10,7 +10,7 @@ class ReferenceService:
             fixed_data = self.validator.validate(data)
             self.repo.add_to_table(fixed_data)
             return True
-        except:
+        except ValueError:
             return False
 
     def _create_reference_object(
@@ -31,9 +31,9 @@ class ReferenceService:
             ), refs
         )
         return list(ref_objects)
-    
+
     def delete_reference(self, key):
         self.repo.delete_from_table(key)
-    
+
     def ref_before_delete(self, key):
         self.repo.ref_to_delete(key)

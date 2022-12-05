@@ -19,7 +19,7 @@ class BookReference:
             data
         )
         self.connection.commit()
-    
+
     def delete_from_table(self, ref_key):
         cursor = self.connection.cursor()
 
@@ -32,7 +32,7 @@ class BookReference:
         )
 
         self.connection.commit()
-    
+
     def ref_to_delete(self, ref_key):
         cursor = self.connection.cursor()
 
@@ -40,5 +40,3 @@ class BookReference:
         data = cursor.execute("SELECT * FROM bookreferences WHERE bib_key=?", (key,)).fetchone()
 
         return data
-
-
