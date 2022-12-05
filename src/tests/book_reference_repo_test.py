@@ -9,7 +9,7 @@ class TestBookReference(unittest.TestCase):
     def setUp(self):
         self.db = Database(testing_environment=True)
         self.connection = self.db.get_database_connection()
-        self.db.initialize_database()
+        self.db.reset_database()
         self.book_reference = BookReference(self.db.get_database_connection())
 
     def test_add_to_table_adds_data_to_database(self):

@@ -1,6 +1,4 @@
-import os
 from database import Database
-import sqlite3
 from repositories.book_reference_repo import BookReference
 from app import App
 from ui.stub_ui import StubUI
@@ -48,3 +46,21 @@ class ReferenceLibrary:
         if len(data) != int(length):
             raise AssertionError(
                 f"There's something wrong, {len(data)} != {length}")
+
+    def output_should_contain(self, value):
+        output = self.ui.outputs.pop(0)
+
+        if not value in output:
+            raise AssertionError(
+                f"Output \"{value}\" is not in {str(output)}"
+            )
+
+    def create_database_entry(self, author, title, year, publ, key):
+        data = [author, title, year, publ, key]
+        self.book_reference.add_to_table(data)
+
+    def reset_database(self):
+        self.db.reset_database()
+
+    def view_ref(self):
+        self.ui.view_ref()
