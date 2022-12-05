@@ -14,9 +14,9 @@ class App:
 
     def create_bibtex_file(self, data, filename):
         self.bibtex_generator.create_bibtex_file(data, filename)
-    
+
     def delete_reference(self, key):
         self.book_reference_repo.delete_from_table(key)
-    
+
     def ref_before_delete(self, key):
         self.book_reference_repo.ref_to_delete(key)

@@ -18,7 +18,7 @@ class BibtexGeneratorService:
 
                 BibtexGeneratorService._write_ref_to_bibtex_file(
                     file, bib_key, author, title, publisher, year)
-    
+
     @staticmethod
     def _replace_scandinavic_characters(string: str):
         string = string.replace("å", "{\\aa}")
