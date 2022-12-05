@@ -70,8 +70,38 @@ Sulje ohjelma, paina 5\n"
         self.app.add_reference(ref_list)
 
     def del_ref(self, key):
+
+        self.ref_to_delete(key)
         
         answer = input("Haluatko varmasti poistaa viitteen?(kyllä/en) ")
+
         if answer == "kyllä":
             self.app.delete_reference(key)
+    
+
+    def ref_to_delete(self, key):
+
+        data = self.app.get_all_references()
+        #print(data)
+
+        
+        for ref in data:
+            author = ref.author
+            title = ref.title
+            publisher = ref.publisher
+
+
+            if len(author) > 15:
+                author = author[:11] + "..."
+            if len(title) > 15:
+                title = title[:11] + "..."
+            if len(publisher) > 15:
+                publisher = publisher[:11] + "..."
+            
+            if key == ref.bib_key:
+
+
+                print(f"Author: {author:15} | Title: {title:15} | Year: {ref.year:4} \
+                    | Publisher: {publisher:15} | Key: {ref.bib_key} \n"
+                )
         

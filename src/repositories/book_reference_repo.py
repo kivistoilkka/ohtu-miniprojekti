@@ -24,9 +24,21 @@ class BookReference:
         cursor = self.connection.cursor()
 
         key = ref_key
+        #data = cursor.execute("SELECT * FROM bookreferences WHERE bib_key=?", (key,)).fetchall()
+        #print(f"Poistettava viite\
+        #    {data}")
         cursor.execute(
             "DELETE FROM bookreferences WHERE bib_key=?", (key,)
         )
 
         self.connection.commit()
+    
+    def ref_to_delete(self, ref_key):
+        cursor = self.connection.cursor()
+
+        key = ref_key
+        data = cursor.execute("SELECT * FROM bookreferences WHERE bib_key=?", (key,)).fetchall()
+
+        return data
+
 
