@@ -32,11 +32,15 @@ Sulje ohjelma, paina 5\n"
                 break
 
     def create_file(self):
-        filename = input("Minkä nimisen tiedoston haluat luoda?")
+        filename = input("Minkä nimisen tiedoston haluat luoda? ")
 
         data = self.app.get_all_references()
 
-        self.app.create_bibtex_file(data, filename)
+        try:
+            self.app.create_bibtex_file(data, filename)
+            print("Tiedosto luotu!")
+        except Exception as e:
+            print(e + "\n")
 
     # def create_database(self):
     #     selection = input("Haluatko luoda uuden tietokannan (kyllä/ei)? ")
