@@ -32,5 +32,5 @@ class ReferenceService:
         )
         return list(ref_objects)
     
-    def delete_reference(self):
-        self.repo.delete_from_table()
+    def delete_reference(self, key):
+        self.repo.delete_from_table(key)

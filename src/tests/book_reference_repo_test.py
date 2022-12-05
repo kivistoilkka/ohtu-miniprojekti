@@ -17,3 +17,4 @@ class TestBookReference(unittest.TestCase):
         data = ["Test Author", "Test it to the limit", 2022, "TestPublishing", "test22"]
         self.book_reference.add_to_table(data)
         self.assertEqual(len(self.book_reference.get_data()), 1)
+    

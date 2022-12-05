@@ -20,10 +20,10 @@ class BookReference:
         )
         self.connection.commit()
     
-    def delete_from_table(self):
+    def delete_from_table(self, ref_key):
         cursor = self.connection.cursor()
 
-        key = input("Anna avain: ")
+        key = ref_key
         cursor.execute(
             "DELETE FROM bookreferences WHERE bib_key=?", (key,)
         )
