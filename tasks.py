@@ -10,7 +10,7 @@ def build(ctx):
 
 @task
 def lint(ctx):
-    ctx.run("pylint src", pty=True)
+    ctx.run("pylint --fail-under=9 src", pty=True)
 
 @task
 def format(ctx):
