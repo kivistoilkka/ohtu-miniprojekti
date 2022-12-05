@@ -12,7 +12,8 @@ class UI:
 Luoda tiedosto, paina 1\n\
 Tarkastella luotuja viitteitä, paina 2\n\
 Lisää uusi viite, paina 3 \n\
-Sulje ohjelma, paina 4\n"
+Poista viite, paina 4 \n\
+Sulje ohjelma, paina 5\n"
             ))
 
             if options == 1:
@@ -25,6 +26,9 @@ Sulje ohjelma, paina 4\n"
                 self.add_ref()
 
             elif options == 4:
+                self.del_ref()
+
+            elif options == 5:
                 break
 
     def create_file(self):
@@ -62,3 +66,10 @@ Sulje ohjelma, paina 4\n"
     def add_ref(self):
         ref_list = self.reference_reader.ref_reader()
         self.app.add_reference(ref_list)
+
+    def del_ref(self):
+        
+        answer = input("Haluatko varmasti poistaa viitteen?(kyllä/en) ")
+        if answer == "kyllä":
+            self.app.delete_reference()
+        

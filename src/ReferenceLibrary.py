@@ -5,7 +5,9 @@ from repositories.book_reference_repo import BookReference
 from app import App
 from ui.stub_ui import StubUI
 from services.reference_service import ReferenceService
+from services.input_validator_service import InputValidator
 from ui.reference_reader import ReferenceReader
+
 
 
 class ReferenceLibrary:
@@ -22,10 +24,10 @@ class ReferenceLibrary:
         dirname = os.path.dirname(__file__)
         self.db = Database()
         self.connection = sqlite3.connect(
-            os.path.join(dirname, "robot_testi.db"))
+            os.path.join(dirname, "tests/robot_testi.db"))
         self.db.initialize_database(self.connection)
         self.book_reference = BookReference(self.connection)
-        self.reference_service = ReferenceService(self.book_reference)
+        self.reference_service = ReferenceService(self.book_reference, InputValidator())
         self.reference_reader = ReferenceReader()
         app = App(self.connection, self.book_reference,
                   self.db, self.reference_reader)

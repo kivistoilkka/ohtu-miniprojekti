@@ -19,3 +19,14 @@ class BookReference:
             data
         )
         self.connection.commit()
+    
+    def delete_from_table(self):
+        cursor = self.connection.cursor()
+
+        key = input("Anna avain: ")
+        cursor.execute(
+            "DELETE FROM bookreferences WHERE bib_key=?", (key,)
+        )
+
+        self.connection.commit()
+
