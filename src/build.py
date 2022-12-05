@@ -2,8 +2,7 @@ from database import Database
 
 def build():
     database = Database()
-    connection = database.get_database_connection()
-    database.initialize_database(connection)
+    database.initialize_database()
 
 if __name__ == "__main__":
     build()
