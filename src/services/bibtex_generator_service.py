@@ -4,16 +4,20 @@ class BibtexGeneratorService:
 
     def create_bibtex_file(self, refs: list, filename: str):
         if len(refs) == 0:
-            raise ValueError("Lisättyjä viitteitä ei ole, joten BibTeX-tiedostoa ei voi luoda!")
+            raise ValueError(
+                "Lisättyjä viitteitä ei ole, joten BibTeX-tiedostoa ei voi luoda!")
         if not filename.endswith(".bib"):
             raise ValueError("Tiedostopäätteen tulee olla .bib!")
 
         with open(filename, "w") as file:
             for ref in refs:
                 bib_key = ref.bib_key
-                author = BibtexGeneratorService._replace_scandinavic_characters(ref.author)
-                title = BibtexGeneratorService._replace_scandinavic_characters(ref.title)
-                publisher = BibtexGeneratorService._replace_scandinavic_characters(ref.publisher)
+                author = BibtexGeneratorService._replace_scandinavic_characters(
+                    ref.author)
+                title = BibtexGeneratorService._replace_scandinavic_characters(
+                    ref.title)
+                publisher = BibtexGeneratorService._replace_scandinavic_characters(
+                    ref.publisher)
                 year = ref.year
 
                 BibtexGeneratorService._write_ref_to_bibtex_file(

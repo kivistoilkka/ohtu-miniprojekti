@@ -23,7 +23,7 @@ class StubUI:
 
             self.outputs.append(f"Author: {author:15} | Title: {title:15} | Year: {ref.year:4} \
                 | Publisher: {publisher:15} | Key: {ref.bib_key} \n"
-                   )
+                                )
 
     def add_ref(self, ref_list):
         self.reference_service.add_reference(ref_list)

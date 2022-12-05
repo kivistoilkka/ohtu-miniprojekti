@@ -1,5 +1,6 @@
 from entities.reference import Reference
 
+
 class ReferenceService:
     def __init__(self, repo, validator):
         self.repo = repo

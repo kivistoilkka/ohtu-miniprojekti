@@ -2,6 +2,7 @@ import unittest
 from services.reference_service import ReferenceService
 from entities.reference import Reference
 
+
 class StubRepo:
     def __init__(self, expected_data, database_content):
         self.expected_data = expected_data
@@ -14,12 +15,14 @@ class StubRepo:
     def get_data(self):
         return self.database_content
 
+
 class StubValidator:
     def __init__(self):
         pass
 
     def validate(self, reference_list):
-        return reference_list 
+        return reference_list
+
 
 class TestReferenceService(unittest.TestCase):
     def setUp(self):
@@ -37,7 +40,8 @@ class TestReferenceService(unittest.TestCase):
 
     def test_all_references_from_database_with_one_reference_can_be_fetched(self):
         repo = StubRepo([], [
-            (1, "Test Author", "Test it to the limit", 2022, "TestPublishing", "test22")
+            (1, "Test Author", "Test it to the limit",
+             2022, "TestPublishing", "test22")
         ])
         validator = StubValidator()
         ref_service = ReferenceService(repo, validator)
@@ -45,17 +49,21 @@ class TestReferenceService(unittest.TestCase):
             "Test Author", "Test it to the limit", 2022, "TestPublishing", "test22")]
         result = ref_service.get_all_references()
         self.assertEqual(str(result[0]), str(expected_list[0]))
-    
+
     def test_all_references_from_database_with_two_references_can_be_fetched(self):
         repo = StubRepo([], [
-            (1, "Test Author", "Test it to the limit", 2022, "TestPublishing", "test22"),
-            (2, "Stanley", "This is a story about a man named Stanley", 2013, "GC", "stan13")
+            (1, "Test Author", "Test it to the limit",
+             2022, "TestPublishing", "test22"),
+            (2, "Stanley", "This is a story about a man named Stanley",
+             2013, "GC", "stan13")
         ])
         validator = StubValidator()
         ref_service = ReferenceService(repo, validator)
         expected_list = [
-            Reference("Test Author", "Test it to the limit", 2022, "TestPublishing", "test22"),
-            Reference("Stanley", "This is a story about a man named Stanley", 2013, "GC", "stan13")
+            Reference("Test Author", "Test it to the limit",
+                      2022, "TestPublishing", "test22"),
+            Reference(
+                "Stanley", "This is a story about a man named Stanley", 2013, "GC", "stan13")
         ]
         result = ref_service.get_all_references()
         for i, ref in enumerate(result):

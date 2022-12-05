@@ -1,5 +1,6 @@
 from ui.reference_reader import ReferenceReader
 
+
 class UI:
     def __init__(self, app):
         self.app = app
@@ -66,7 +67,7 @@ class UI:
 
             print(f"Author: {author:15} | Title: {title:15} | Year: {ref.year:4} \
                 | Publisher: {publisher:15} | Key: {ref.bib_key} \n"
-            )
+                  )
 
     def add_ref(self):
         ref_list = self.reference_reader.ref_reader()
@@ -82,12 +83,10 @@ class UI:
         if answer == "kyllä":
             self.app.delete_reference(key)
 
-
     def ref_to_delete(self, key):
 
         data = self.app.get_all_references()
-        #print(data)
-
+        # print(data)
 
         for ref in data:
             author = ref.author
@@ -104,4 +103,4 @@ class UI:
             if key == ref.bib_key:
                 print(f"Author: {author:15} | Title: {title:15} | Year: {ref.year:4} \
                     | Publisher: {publisher:15} | Key: {ref.bib_key} \n"
-                )
+                      )

@@ -14,7 +14,8 @@ def main():
     validator = InputValidator()
     reference_service = ReferenceService(book_reference_repo, validator)
     bibtex_generator = BibtexGeneratorService()
-    app = App(connection, book_reference_repo, reference_service, db, bibtex_generator)
+    app = App(connection, book_reference_repo,
+              reference_service, db, bibtex_generator)
 
     ui = UI(app)
     ui.run()

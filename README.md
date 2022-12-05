@@ -39,6 +39,10 @@ poetry run robot src/tests/
 ```bash
 poetry run invoke lint
 ```
+- Koodin formatointi autopep8:lla:
+```bash
+poetry run invoke format
+```
 
 ## Dokumentaatio
 

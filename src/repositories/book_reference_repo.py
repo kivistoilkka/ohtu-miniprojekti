@@ -9,8 +9,7 @@ class BookReference:
 
         return data
 
-
-    def add_to_table(self, data:list):
+    def add_to_table(self, data: list):
         cursor = self.connection.cursor()
 
         cursor.execute(
@@ -25,7 +24,7 @@ class BookReference:
 
         key = ref_key
         #data = cursor.execute("SELECT * FROM bookreferences WHERE bib_key=?", (key,)).fetchall()
-        #print(f"Poistettava viite\
+        # print(f"Poistettava viite\
         #    {data}")
         cursor.execute(
             "DELETE FROM bookreferences WHERE bib_key=?", (key,)
@@ -37,6 +36,7 @@ class BookReference:
         cursor = self.connection.cursor()
 
         key = ref_key
-        data = cursor.execute("SELECT * FROM bookreferences WHERE bib_key=?", (key,)).fetchone()
+        data = cursor.execute(
+            "SELECT * FROM bookreferences WHERE bib_key=?", (key,)).fetchone()
 
         return data
