@@ -37,7 +37,7 @@ class BookReference:
         cursor = self.connection.cursor()
 
         key = ref_key
-        data = cursor.execute("SELECT * FROM bookreferences WHERE bib_key=?", (key,)).fetchall()
+        data = cursor.execute("SELECT * FROM bookreferences WHERE bib_key=?", (key,)).fetchone()
 
         return data
 
