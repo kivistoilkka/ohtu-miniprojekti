@@ -17,3 +17,6 @@ class App:
     
     def delete_reference(self, key):
         self.book_reference_repo.delete_from_table(key)
+    
+    def ref_before_delete(self, key):
+        self.book_reference_repo.ref_to_delete(key)
