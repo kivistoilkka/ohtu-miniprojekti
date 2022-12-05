@@ -3,6 +3,7 @@ class StubUI:
     def __init__(self, app, ref_service) -> None:
         self.app = app
         self.reference_service = ref_service
+        self.outputs = []
 
     def view_ref(self):
 
@@ -20,7 +21,7 @@ class StubUI:
             if len(publisher) > 15:
                 publisher = publisher[:11] + "..."
 
-            return(f"Author: {author:15} | Title: {title:15} | Year: {ref.year:4} \
+            self.outputs.append(f"Author: {author:15} | Title: {title:15} | Year: {ref.year:4} \
                 | Publisher: {publisher:15} | Key: {ref.bib_key} \n"
                    )
 

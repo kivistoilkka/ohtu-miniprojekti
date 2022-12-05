@@ -48,6 +48,6 @@ class Database:
     def get_database_connection(self):
         return self.connection
 
-    def initialize_database(self):
+    def reset_database(self):
         self.drop_tables(self.connection)
         self.create_tables(self.connection)
