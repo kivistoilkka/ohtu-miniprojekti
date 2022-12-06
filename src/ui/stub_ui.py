@@ -5,9 +5,22 @@ class StubUI:
         self.reference_service = ref_service
         self.outputs = []
 
-    def view_ref(self):
+    def sort_data(self, data, sort_key, order):
+        if sort_key == "1":
+            if order == "1":
+                data.sort(key=lambda ref: ref.year, reverse=False)
+            if order == "2":
+                data.sort(key=lambda ref: ref.year, reverse=True)
+
+        elif sort_key == "2":
+            if order == "2":
+                data.reverse()
+        return data
+
+    def view_ref(self, sort_key, order):
 
         data = self.reference_service.get_all_references()
+        data = self.sort_data(data, sort_key, order)
 
         for ref in data:
             author = ref.author

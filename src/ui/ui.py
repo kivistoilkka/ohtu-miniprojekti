@@ -49,9 +49,26 @@ class UI:
     #     if selection == "kyllä":
     #         self.app.db.create_tables(self.app.connection)
 
+    def sort_data(self, data, sorting_key, order):
+        if sorting_key == "1":
+            if order == "1":
+                data.sort(key=lambda ref: ref.year, reverse=False)
+            if order == "2":
+                data.sort(key=lambda ref: ref.year, reverse=True)
+
+        elif sorting_key == "2":
+            if order == "2":
+                data.reverse()
+        return data
+
     def view_ref(self):
+        sorting_key = input(
+            "Millä perusteella haluat järjestää listan? \nVuosiluvun perusteella, paina 1 \nLisäysjärjestyksessä, paina 2 \n")
+        order = input(
+            "Haluatko listan \nNousevassa järjestyksessä, paina 1 \nLaskevassa järjestyksessä, paina 2 \n")
 
         data = self.app.get_all_references()
+        data = self.sort_data(data, sorting_key, order)
 
         for ref in data:
             author = ref.author

@@ -62,5 +62,5 @@ class ReferenceLibrary:
     def reset_database(self):
         self.db.reset_database()
 
-    def view_ref(self):
-        self.ui.view_ref()
+    def view_ref(self, sort_key, order):
+        self.ui.view_ref(sort_key, order)
