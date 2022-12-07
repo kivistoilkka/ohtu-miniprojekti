@@ -24,10 +24,3 @@ class TestBookReference(unittest.TestCase):
     def test_create_bibtex_file_raises_an_exception_if_there_is_no_references(self):
         self.assertRaises(
             ValueError, self.bibtex_generator.create_bibtex_file, [], "test.bib")
-
-    def test_create_bibtex_file_raises_an_exception_if_filename_does_not_end_with_bib(self):
-        refs = [Reference(
-            "Yrjänä Änkyräinen", "Test it to the limit", 2022, "TestPublishing", "test22")]
-
-        self.assertRaises(
-            ValueError, self.bibtex_generator.create_bibtex_file, refs, "test.biba")
