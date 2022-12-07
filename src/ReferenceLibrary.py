@@ -1,3 +1,5 @@
+import pathlib
+
 from database import Database
 from repositories.book_reference_repo import BookReference
 from app import App
@@ -6,6 +8,7 @@ from services.reference_service import ReferenceService
 from services.input_validator_service import InputValidator
 from services.bibtex_generator_service import BibtexGeneratorService
 from ui.reference_reader import ReferenceReader
+from entities.reference import Reference
 
 
 class ReferenceLibrary:
@@ -64,3 +67,19 @@ class ReferenceLibrary:
 
     def view_ref(self, sort_key, order):
         self.ui.view_ref(sort_key, order)
+
+    def create_bibtex_file(self, author, title, year, publisher, bib_key, filename):
+        data = [Reference(author, title, int(year), publisher, bib_key)]
+        self.bibtex_generator.create_bibtex_file(data, filename)
+
+    def data_in_bibtex_file_should_be(self, filename):
+        FILE_LOCATION = pathlib.Path(__file__).parent.parent.joinpath(filename)
+
+        content = """@Book{test01,\n  author     = "Testaaja1",\n  title      = "Testikirja1",\n  publisher  = "Unigrafia",\n  year       = 2001\n}\n\n"""
+
+        if not content == FILE_LOCATION.open().read():
+            raise AssertionError(
+                f"File {content} does not have correct content {FILE_LOCATION.open().read()}"
+            )
+
+

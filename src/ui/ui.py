@@ -29,7 +29,7 @@ class UI:
 
         try:
             self.app.create_bibtex_file(data, filename)
-            print("Tiedosto luotu!")
+            print("Tiedosto luotu projektin juurihakemistoon!")
         except ValueError as error:
             print(error, "\n")
 
