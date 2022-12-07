@@ -2,7 +2,13 @@
 name = "ohtu-miniprojekti"
 version = "0.1.0"
 description = ""
-authors = ["Nikita Essine <nikita.essine@helsinki.fi>"]
+authors = [
+    "Nikita Essine <nikita.essine@helsinki.fi>",
+    "Taina Hilliaho <taina.hilliaho@helsinki.fi>",
+    "Valtteri Kantanen <valtteri.kantanen@helsinki.fi>",
+    "Ilkka Kivistö <ilkka.kivisto@gmail.com>",
+    "Heljä Räisäinen <heljakanerva@gmail.com>"
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"

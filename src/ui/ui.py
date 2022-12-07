@@ -29,9 +29,9 @@ class UI:
 
         try:
             self.app.create_bibtex_file(data, filename)
-            print("Tiedosto luotu!\n")
+            print("Tiedosto luotu!")
         except ValueError as error:
-            print(error + "\n")
+            print(error, "\n")
 
     def print_instructions(self):
         instructions = ["\nMitä haluat tehdä?\n",

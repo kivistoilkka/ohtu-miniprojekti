@@ -7,7 +7,7 @@ class BibtexGeneratorService:
             raise ValueError(
                 "Lisättyjä viitteitä ei ole, joten BibTeX-tiedostoa ei voi luoda!")
         if not filename.endswith(".bib"):
-            raise ValueError("Tiedostopäätteen tulee olla .bib!")
+            filename += ".bib"
 
         with open(filename, "w") as file:
             for ref in refs:
