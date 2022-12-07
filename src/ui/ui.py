@@ -23,18 +23,18 @@ class UI:
                 break
 
     def create_file(self):
-        filename = input("Minkä nimisen tiedoston haluat luoda? ")
+        filename = input("\nMinkä nimisen tiedoston haluat luoda? ")
 
         data = self.app.get_all_references()
 
         try:
             self.app.create_bibtex_file(data, filename)
-            print("Tiedosto luotu!")
+            print("Tiedosto luotu!\n")
         except ValueError as error:
             print(error + "\n")
 
     def print_instructions(self):
-        instructions = ["Mitä haluat tehdä?",
+        instructions = ["\nMitä haluat tehdä?\n",
                         "Luoda tiedosto, paina 1",
                         "Tarkastella luotuja viitteitä, paina 2",
                         "Lisää uusi viite, paina 3",
@@ -63,9 +63,9 @@ class UI:
 
     def view_ref(self):
         sorting_key = input(
-            "Millä perusteella haluat järjestää listan? \nVuosiluvun perusteella, paina 1 \nLisäysjärjestyksessä, paina 2 \n")
+            "\nMillä perusteella haluat järjestää listan? \nVuosiluvun perusteella, paina 1 \nLisäysjärjestyksessä, paina 2 \n")
         order = input(
-            "Haluatko listan \nNousevassa järjestyksessä, paina 1 \nLaskevassa järjestyksessä, paina 2 \n")
+            "\nHaluatko listan \nNousevassa järjestyksessä, paina 1 \nLaskevassa järjestyksessä, paina 2 \n")
 
         data = self.app.get_all_references()
         data = self.sort_data(data, sorting_key, order)
@@ -82,7 +82,7 @@ class UI:
             if len(publisher) > 15:
                 publisher = publisher[:11] + "..."
 
-            print(f"Author: {author:15} | Title: {title:15} | Year: {ref.year:4} \
+            print(f"\nAuthor: {author:15} | Title: {title:15} | Year: {ref.year:4} \
                 | Publisher: {publisher:15} | Key: {ref.bib_key} \n"
                   )
 
@@ -91,11 +91,11 @@ class UI:
         self.app.add_reference(ref_list)
 
     def del_ref(self):
-        key = input("Anna avain:")
+        key = input("\nAnna avain:")
 
         self.ref_to_delete(key)
 
-        answer = input("Haluatko varmasti poistaa viitteen?(kyllä/en) ")
+        answer = input("Haluatko varmasti poistaa viitteen?(kyllä/en)\n")
 
         if answer == "kyllä":
             self.app.delete_reference(key)
@@ -118,6 +118,6 @@ class UI:
                 publisher = publisher[:11] + "..."
 
             if key == ref.bib_key:
-                print(f"Author: {author:15} | Title: {title:15} | Year: {ref.year:4} \
+                print(f"\nAuthor: {author:15} | Title: {title:15} | Year: {ref.year:4} \
                     | Publisher: {publisher:15} | Key: {ref.bib_key} \n"
                       )
