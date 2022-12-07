@@ -5,11 +5,11 @@
 
 ## Käyttöohje
 
-- Lataa projekti koneellesi
+- Lataa projekti koneellesi ja asenna riippuvuudet komennolla `poetry install`.
 
-- Tee alustustoimenpisteet antamalla projektikansiossa komento `python3 src/build.py` tai `poetry run invoke build`. HUOM! Komento alustaa tietokannan, joten se tulee tehdä vain silloin, kun tietokannan haluaa tyhjentää.
+- Tee alustustoimenpisteet antamalla projektikansiossa komento `poetry run invoke build`. HUOM! Komento alustaa tietokannan, joten se tulee tehdä vain silloin, kun tietokannan haluaa tyhjentää.
 
-- Käynnistä ohjelma komennolla `python3 src/index.py` tai `poetry run invoke run`.
+- Käynnistä ohjelma komennolla `poetry run invoke run`.
 
 - Ohjelmassa voi tällä hetkellä luoda BibTex-tiedoston komennolla 1, tarkastella lisättyjä viitteitä komennolla 2, lisätä viitteitä komennolla 3 ja poistaa viitteitä komennolla 4. Ohjelmasta poistutaan komennolla 5.
 
