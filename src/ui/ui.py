@@ -44,7 +44,6 @@ class UI:
         for instruction in instructions:
             print("\n" + instruction)
 
-
     def sort_data(self, data, sorting_key, order):
         if sorting_key == "1":
             if order == "1":

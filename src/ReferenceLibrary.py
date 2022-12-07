@@ -81,5 +81,3 @@ class ReferenceLibrary:
             raise AssertionError(
                 f"File {content} does not have correct content {FILE_LOCATION.open().read()}"
             )
-
-
