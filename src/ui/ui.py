@@ -34,20 +34,16 @@ class UI:
             print(error, "\n")
 
     def print_instructions(self):
-        instructions = ["\nMitä haluat tehdä?\n",
-                        "Luoda tiedosto, paina 1",
+        instructions = ["Luoda tiedosto, paina 1",
                         "Tarkastella luotuja viitteitä, paina 2",
                         "Lisää uusi viite, paina 3",
                         "Poista viite, paina 4",
                         "Sulje ohjelma, paina 5"]
 
+        print(self.text_to_bold("Mitä haluat tehdä?"))
         for instruction in instructions:
-            print(instruction)
+            print("\n" + instruction)
 
-    # def create_database(self):
-    #     selection = input("Haluatko luoda uuden tietokannan (kyllä/ei)? ")
-    #     if selection == "kyllä":
-    #         self.app.db.create_tables(self.app.connection)
 
     def sort_data(self, data, sorting_key, order):
         if sorting_key == "1":
@@ -103,7 +99,6 @@ class UI:
     def ref_to_delete(self, key):
 
         data = self.app.get_all_references()
-        # print(data)
 
         for ref in data:
             author = ref.author
@@ -121,3 +116,6 @@ class UI:
                 print(f"\nAuthor: {author:15} | Title: {title:15} | Year: {ref.year:4} \
                     | Publisher: {publisher:15} | Key: {ref.bib_key} \n"
                       )
+
+    def text_to_bold(self, text):
+        return "\033[1m" + text + "\033[0m"
