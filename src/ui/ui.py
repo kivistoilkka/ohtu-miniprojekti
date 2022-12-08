@@ -113,7 +113,7 @@ class UI:
 
             if key == ref.bib_key:
                 print(f"\nAuthor: {author:15} | Title: {title:15} | Year: {ref.year:4} \
-                    | Publisher: {publisher:15} | Key: {ref.bib_key} \n"
+                    | Publisher: {publisher:15} | Key: {ref.bib_key:8} | Tag: {ref.tag}\n"
                       )
 
     def text_to_bold(self, text):
