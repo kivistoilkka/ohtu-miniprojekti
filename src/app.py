@@ -20,3 +20,9 @@ class App:
 
     def ref_before_delete(self, key):
         self.book_reference_repo.ref_to_delete(key)
+
+    def filter_by_tag(self, tag):
+        return self.book_reference_repo.get_data_by_tag(tag)
+
+    def get_tags(self):
+        return self.book_reference_repo.get_tags()
