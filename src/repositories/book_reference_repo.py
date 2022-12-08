@@ -37,3 +37,17 @@ class BookReference:
             "SELECT * FROM bookreferences WHERE bib_key=?", (key,)).fetchone()
 
         return data
+
+    def get_data_by_tag(self, tag):
+        cursor = self.connection.cursor()
+        data = cursor.execute(
+            "SELECT * FROM bookreferences WHERE tag=?", (tag,)).fetchall()
+
+        return data
+
+    def get_tags(self):
+        cursor = self.connection.cursor()
+        data = cursor.execute(
+            "SELECT tag FROM bookreferences")
+
+        return data

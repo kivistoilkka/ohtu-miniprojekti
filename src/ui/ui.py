@@ -57,12 +57,19 @@ class UI:
         return data
 
     def view_ref(self):
+        tag_list = self.app.get_tags()
+        tag = input(
+            f"Haluatko suodattaa listaa tagin perusteella? Syötä tagi tai jätä tyhjäksi. \n Tagit: {tag_list} ")
         sorting_key = input(
             "\nMillä perusteella haluat järjestää listan? \nVuosiluvun perusteella, paina 1 \nLisäysjärjestyksessä, paina 2 \n")
         order = input(
             "\nHaluatko listan \nNousevassa järjestyksessä, paina 1 \nLaskevassa järjestyksessä, paina 2 \n")
 
-        data = self.app.get_all_references()
+        if tag == "":
+            data = self.app.get_all_references()
+        else:
+            data = self.app.filter_by_tag(tag)
+
         data = self.sort_data(data, sorting_key, order)
 
         for ref in data:
