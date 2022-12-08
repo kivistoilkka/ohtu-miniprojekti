@@ -1,3 +1,5 @@
+import colorama
+from colorama import Fore
 from ui.reference_reader import ReferenceReader
 
 
@@ -91,7 +93,7 @@ class UI:
 
         self.ref_to_delete(key)
 
-        answer = input("Haluatko varmasti poistaa viitteen?(kyllä/en)\n")
+        answer = input(Fore.RED + "Haluatko varmasti poistaa viitteen?(kyllä/en)\n")
 
         if answer == "kyllä":
             self.app.delete_reference(key)
