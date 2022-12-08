@@ -20,15 +20,16 @@ class ReferenceService:
         title: str,
         year: int,
         publisher: str,
-        bib_key: str
+        bib_key: str,
+        tag: str
     ) -> Reference:
-        return Reference(author, title, year, publisher, bib_key)
+        return Reference(author, title, year, publisher, bib_key, tag)
 
     def get_all_references(self):
         refs = self.repo.get_data()
         ref_objects = map(
             lambda ref: self._create_reference_object(
-                ref[1], ref[2], ref[3], ref[4], ref[5]
+                ref[1], ref[2], ref[3], ref[4], ref[5], ref[6]
             ), refs
         )
         return list(ref_objects)
