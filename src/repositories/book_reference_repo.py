@@ -13,8 +13,8 @@ class BookReference:
         cursor = self.connection.cursor()
 
         cursor.execute(
-            "INSERT INTO bookreferences (author, title, year, publisher, bib_key)\
-            VALUES (?, ?, ?, ?, ?)",
+            "INSERT INTO bookreferences (author, title, year, publisher, bib_key, tag)\
+            VALUES (?, ?, ?, ?, ?, ?)",
             data
         )
         self.connection.commit()
@@ -23,9 +23,6 @@ class BookReference:
         cursor = self.connection.cursor()
 
         key = ref_key
-        #data = cursor.execute("SELECT * FROM bookreferences WHERE bib_key=?", (key,)).fetchall()
-        # print(f"Poistettava viite\
-        #    {data}")
         cursor.execute(
             "DELETE FROM bookreferences WHERE bib_key=?", (key,)
         )

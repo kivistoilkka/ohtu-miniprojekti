@@ -34,7 +34,8 @@ class Database:
                 title text,
                 year integer,
                 publisher text,
-                bib_key text unique
+                bib_key text unique,
+                tag text
             );
         ''')
 
