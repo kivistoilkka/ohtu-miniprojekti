@@ -1,8 +1,6 @@
-import os
-import sqlite3
 import unittest
 from database import Database
-from repositories.book_reference_repo import BookReference
+from repositories.book_reference_repo import BookReferenceRepo
 
 
 class TestDatabase(unittest.TestCase):
@@ -10,7 +8,7 @@ class TestDatabase(unittest.TestCase):
         self.db = Database(testing_environment=True)
         # sqlite3.connect(os.path.join(dirname, "testi.db"))
         self.connection = self.db.get_database_connection()
-        self.book_reference = BookReference
+        self.book_reference = BookReferenceRepo
 
     def test_reset_database_creates_new_tables(self):
         self.db.reset_database()

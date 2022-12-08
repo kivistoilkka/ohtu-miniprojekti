@@ -1,4 +1,4 @@
-class Reference:
+class BookReference:
     def __init__(self, author: str, title: str, year: int, publisher: str, bib_key: str):
         self.__author = author
         self.__title = title

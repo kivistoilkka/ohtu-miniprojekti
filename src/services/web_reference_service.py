@@ -1,7 +1,7 @@
-from entities.reference import Reference
+from entities.web_reference import WebReference
 
 
-class ReferenceService:
+class WebReferenceService:
     def __init__(self, repo, validator):
         self.repo = repo
         self.validator = validator
@@ -21,8 +21,8 @@ class ReferenceService:
         year: int,
         publisher: str,
         bib_key: str
-    ) -> Reference:
-        return Reference(author, title, year, publisher, bib_key)
+    ) -> WebReference:
+        return WebReference(author, title, year, publisher, bib_key)
 
     def get_all_references(self):
         refs = self.repo.get_data()

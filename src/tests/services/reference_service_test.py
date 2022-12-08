@@ -1,6 +1,6 @@
 import unittest
-from services.reference_service import ReferenceService
-from entities.reference import Reference
+from services.book_reference_service import BookReferenceService
+from entities.book_reference import BookReference
 
 
 class StubRepo:
@@ -32,7 +32,7 @@ class TestReferenceService(unittest.TestCase):
         repo = StubRepo(["Test Author", "Test it to the limit",
                         2022, "TestPublishing", "test22"], [])
         validator = StubValidator()
-        ref_service = ReferenceService(repo, validator)
+        ref_service = BookReferenceService(repo, validator)
         result = ref_service.add_reference(
             ["Test Author", "Test it to the limit", 2022, "TestPublishing", "test22"])
         self.assertTrue(result)
@@ -44,8 +44,8 @@ class TestReferenceService(unittest.TestCase):
              2022, "TestPublishing", "test22")
         ])
         validator = StubValidator()
-        ref_service = ReferenceService(repo, validator)
-        expected_list = [Reference(
+        ref_service = BookReferenceService(repo, validator)
+        expected_list = [BookReference(
             "Test Author", "Test it to the limit", 2022, "TestPublishing", "test22")]
         result = ref_service.get_all_references()
         self.assertEqual(str(result[0]), str(expected_list[0]))
@@ -58,11 +58,11 @@ class TestReferenceService(unittest.TestCase):
              2013, "GC", "stan13")
         ])
         validator = StubValidator()
-        ref_service = ReferenceService(repo, validator)
+        ref_service = BookReferenceService(repo, validator)
         expected_list = [
-            Reference("Test Author", "Test it to the limit",
+            BookReference("Test Author", "Test it to the limit",
                       2022, "TestPublishing", "test22"),
-            Reference(
+            BookReference(
                 "Stanley", "This is a story about a man named Stanley", 2013, "GC", "stan13")
         ]
         result = ref_service.get_all_references()

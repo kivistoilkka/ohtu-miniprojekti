@@ -1,28 +1,32 @@
 import pathlib
 
 from database import Database
-from repositories.book_reference_repo import BookReference
 from app import App
 from ui.stub_ui import StubUI
-from services.reference_service import ReferenceService
+from services.book_reference_service import BookReferenceService
+from services.web_reference_service import WebReferenceService
 from services.input_validator_service import InputValidator
 from services.bibtex_generator_service import BibtexGeneratorService
 from ui.reference_reader import ReferenceReader
-from entities.reference import Reference
+from repositories.book_reference_repo import BookReferenceRepo
+from repositories.web_reference_repo import WebReferenceRepo
+from entities.book_reference import BookReference
 
 
 class ReferenceLibrary:
     def __init__(self):
         self.db = Database(testing_environment=True)
-        self.book_reference = BookReference(self.db.get_database_connection())
+        self.book_reference_repo = BookReferenceRepo(self.db.get_database_connection())
         validator = InputValidator()
-        self.reference_service = ReferenceService(
-            self.book_reference, validator)
+        self.book_reference_service = BookReferenceService(
+            self.book_reference_repo, validator)
+        self.web_reference_repo = WebReferenceRepo(self.db.get_database_connection())
+        self.web_reference_service = WebReferenceService(self.web_reference_repo, validator)
         self.reference_reader = ReferenceReader()
         self.bibtex_generator = BibtexGeneratorService()
-        app = App(self.db.get_database_connection(), self.book_reference,
-                  self.db, self.reference_reader, self.bibtex_generator)
-        self.ui = StubUI(app, self.reference_service)
+        app = App(self.db.get_database_connection(), self.book_reference_repo, self.book_reference_service,
+                  self.web_reference_repo, self.web_reference_service, self.db, self.bibtex_generator)
+        self.ui = StubUI(app, self.book_reference_service)
 
     def add_reference(self, author, title, year, publ, key):
         # keywordilla Add Reference Values voi syöttää tälle metodille
@@ -60,7 +64,7 @@ class ReferenceLibrary:
 
     def create_database_entry(self, author, title, year, publ, key):
         data = [author, title, year, publ, key]
-        self.book_reference.add_to_table(data)
+        self.book_reference_repo.add_to_table(data)
 
     def reset_database(self):
         self.db.reset_database()
@@ -69,7 +73,7 @@ class ReferenceLibrary:
         self.ui.view_ref(sort_key, order)
 
     def create_bibtex_file(self, author, title, year, publisher, bib_key, filename):
-        data = [Reference(author, title, int(year), publisher, bib_key)]
+        data = [BookReference(author, title, int(year), publisher, bib_key)]
         self.bibtex_generator.create_bibtex_file(data, filename)
 
     def data_in_bibtex_file_should_be(self, filename):

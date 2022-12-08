@@ -18,9 +18,8 @@ class Database:
     def drop_tables(self, connection):
         cursor = connection.cursor()
 
-        cursor.execute('''
-            drop table if exists bookreferences;
-        ''')
+        cursor.execute("drop table if exists bookreferences")
+        cursor.execute("drop table if exists webreferences")
 
         connection.commit()
 
@@ -35,7 +34,18 @@ class Database:
                 year integer,
                 publisher text,
                 bib_key text unique
-            );
+            )
+        ''')
+
+        cursor.execute('''
+            create table webreferences (
+                id integer primary key,
+                author text,
+                title text,
+                year integer,
+                url text,
+                bib_key text unique
+            )
         ''')
 
         connection.commit()

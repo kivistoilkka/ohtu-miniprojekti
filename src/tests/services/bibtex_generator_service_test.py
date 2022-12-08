@@ -2,7 +2,7 @@ import pathlib
 import unittest
 
 from services.bibtex_generator_service import BibtexGeneratorService
-from entities.reference import Reference
+from entities.book_reference import BookReference
 
 
 class TestBookReference(unittest.TestCase):
@@ -13,7 +13,7 @@ class TestBookReference(unittest.TestCase):
         self.bibtex_generator = BibtexGeneratorService()
 
     def test_create_bibtex_file_creates_correct_file(self):
-        refs = [Reference(
+        refs = [BookReference(
             "Yrjänä Änkyräinen", "Test it to the limit", 2022, "TestPublishing", "test22")]
         self.bibtex_generator.create_bibtex_file(refs, "test.bib")
 

@@ -25,7 +25,7 @@ class UI:
     def create_file(self):
         filename = input("\nMinkä nimisen tiedoston haluat luoda? ")
 
-        data = self.app.get_all_references()
+        data = self.app.get_all_book_references() + self.app.get_all_web_references()
 
         try:
             self.app.create_bibtex_file(data, filename)
@@ -62,28 +62,36 @@ class UI:
         order = input(
             "\nHaluatko listan \nNousevassa järjestyksessä, paina 1 \nLaskevassa järjestyksessä, paina 2 \n")
 
-        data = self.app.get_all_references()
-        data = self.sort_data(data, sorting_key, order)
+        book_data = self.app.get_all_book_references()
+        web_data = self.app.get_all_web_references()
+        book_data = self.sort_data(book_data, sorting_key, order)
+        web_data = self.sort_data(web_data, sorting_key, order)
 
-        for ref in data:
-            author = ref.author
-            title = ref.title
-            publisher = ref.publisher
+        title_bar1 = f'{self.text_to_bold("Author")}                    {self.text_to_bold("Title")}                                         {self.text_to_bold("Year")} {self.text_to_bold("Publisher")}                 {self.text_to_bold("Key")}'
+        title_bar2 = "------------------------- --------------------------------------------- ---- ------------------------- -----------"
 
-            if len(author) > 15:
-                author = author[:11] + "..."
-            if len(title) > 15:
-                title = title[:11] + "..."
-            if len(publisher) > 15:
-                publisher = publisher[:11] + "..."
+        print(f"Kirjaviitteet:\n{title_bar1}\n{title_bar2}")
 
-            print(f"\nAuthor: {author:15} | Title: {title:15} | Year: {ref.year:4} \
-                | Publisher: {publisher:15} | Key: {ref.bib_key} \n"
-                  )
+        for ref in book_data:
+            self.print_book_ref(ref)
+
+        title_bar1 = f'{self.text_to_bold("Author")}                    {self.text_to_bold("Title")}                                         {self.text_to_bold("Year")} {self.text_to_bold("URL")}                       {self.text_to_bold("Key")}'
+        title_bar2 = "------------------------- --------------------------------------------- ---- ------------------------- -----------"
+
+        print(f"Verkkosivuviitteet:\n{title_bar1}\n{title_bar2}")
+
+        for ref in web_data:
+            self.print_web_ref(ref)
 
     def add_ref(self):
-        ref_list = self.reference_reader.ref_reader()
-        self.app.add_reference(ref_list)
+        answer = input(
+            "Haluatko tallentaa kirjaviitteen (paina 1) vai verkkosivuviitteen (paina 2): ")
+        if answer == "1":
+            ref_list = self.reference_reader.book_ref_reader()
+            self.app.add_book_reference(ref_list)
+        elif answer == "2":
+            ref_list = self.reference_reader.web_ref_reader()
+            self.app.add_web_reference(ref_list)
 
     def del_ref(self):
         key = input("\nAnna avain:")
@@ -96,25 +104,47 @@ class UI:
             self.app.delete_reference(key)
 
     def ref_to_delete(self, key):
+        book_ref = self.app.get_book_ref_with_key(key)
+        web_ref = self.app.get_web_ref_with_key(key)
 
-        data = self.app.get_all_references()
-
-        for ref in data:
-            author = ref.author
-            title = ref.title
-            publisher = ref.publisher
-
-            if len(author) > 15:
-                author = author[:11] + "..."
-            if len(title) > 15:
-                title = title[:11] + "..."
-            if len(publisher) > 15:
-                publisher = publisher[:11] + "..."
-
-            if key == ref.bib_key:
-                print(f"\nAuthor: {author:15} | Title: {title:15} | Year: {ref.year:4} \
-                    | Publisher: {publisher:15} | Key: {ref.bib_key} \n"
-                      )
+        if book_ref is not None:
+            self.print_book_ref(book_ref)
+        if web_ref is not None:
+            self.print_web_ref(web_ref)
 
     def text_to_bold(self, text):
         return "\033[1m" + text + "\033[0m"
+
+    def print_book_ref(self, ref):
+        author = ref.author
+        title = ref.title
+        publisher = ref.publisher
+        bib_key = ref.bib_key
+
+        if len(author) > 25:
+            author = author[:22] + "..."
+        if len(title) > 45:
+            title = title[:42] + "..."
+        if len(publisher) > 25:
+            publisher = publisher[:22] + "..."
+        if len(bib_key) > 8:
+            bib_key = bib_key[:8] + "..."
+
+        print(f"{author:25} {title:45} {ref.year:4} {publisher:25} {bib_key:11}\n")
+
+    def print_web_ref(self, ref):
+        author = ref.author
+        title = ref.title
+        url = ref.url
+        bib_key = ref.bib_key
+
+        if len(author) > 25:
+            author = author[:22] + "..."
+        if len(title) > 45:
+            title = title[:42] + "..."
+        if len(url) > 25:
+            url = url[:22] + "..."
+        if len(bib_key) > 8:
+            bib_key = bib_key[:8] + "..."
+
+        print(f"{author:25} {title:45} {ref.year:4} {url:25} {bib_key:11}\n")
