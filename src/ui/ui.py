@@ -57,6 +57,7 @@ class UI:
         return data
 
     def view_ref(self):
+
         sorting_key = input(
             "\nMillä perusteella haluat järjestää listan? \nVuosiluvun perusteella, paina 1 \nLisäysjärjestyksessä, paina 2 \n")
         order = input(
