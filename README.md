@@ -33,8 +33,8 @@ poetry run invoke coverage-report
 ```
 - Robot Framework -testit:
 ```bash
-poetry run robot src/tests/
-```  README.md
+poetry run robot src
+```
 - Pylint-tarkistus:
 ```bash
 poetry run invoke lint
