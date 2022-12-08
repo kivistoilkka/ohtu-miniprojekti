@@ -14,24 +14,24 @@ class TestBookReference(unittest.TestCase):
 
     def test_add_to_table_adds_data_to_database(self):
         data = ["Test Author", "Test it to the limit",
-                2022, "TestPublishing", "test22"]
+                2022, "TestPublishing", "test22", ""]
         self.book_reference.add_to_table(data)
         self.assertEqual(len(self.book_reference.get_data()), 1)
 
     def test_delete_from_table_deletes_data_from_database(self):
         data = ["Test Author", "Test it to the limit",
-                2022, "TestPublishing", "test22"]
+                2022, "TestPublishing", "test22", ""]
         self.book_reference.add_to_table(data)
-        self.book_reference.delete_from_table(data[-1])
+        self.book_reference.delete_from_table(data[-2])
         self.assertEqual(len(self.book_reference.get_data()), 0)
 
     def test_ref_to_delete_returns_right_ref(self):
         data = ["Test Author", "Test it to the limit",
-                2022, "TestPublishing", "test22"]
+                2022, "TestPublishing", "test22", ""]
         self.book_reference.add_to_table(data)
-        self.book_reference.ref_to_delete(data[-1])
+        self.book_reference.ref_to_delete(data[-2])
         self.assertEqual(self.book_reference.ref_to_delete(
-            data[-1])[-1], data[-1])
+            data[-2])[-2], data[-2])
 
     def test_get_data_by_tag_returns_right_data(self):
         data = ["Test Author", "Test it to the limit",
