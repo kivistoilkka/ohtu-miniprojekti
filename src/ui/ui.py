@@ -80,8 +80,8 @@ class UI:
             if len(publisher) > 15:
                 publisher = publisher[:11] + "..."
 
-            print(f"\nAuthor: {author:15} | Title: {title:15} | Year: {ref.year:4} \
-                | Publisher: {publisher:15} | Key: {ref.bib_key} \n"
+            print(f"\n {self.text_to_bold('Author')}: {author:15} | {self.text_to_bold('Title')}: {title:15} | {self.text_to_bold('year')}: {ref.year:4} \
+| {self.text_to_bold('Publisher')}: {publisher:15} | {self.text_to_bold('key')}: {ref.bib_key} \n"
                   )
 
     def add_ref(self):
@@ -115,7 +115,7 @@ class UI:
                 publisher = publisher[:11] + "..."
 
             if key == ref.bib_key:
-                print(f"\nAuthor: {author:15} | Title: {title:15} | Year: {ref.year:4} \
+                print(f"\nAuthor: {self.text_to_bold(author):15} | Title: {title:15} | Year: {ref.year:4} \
                     | Publisher: {publisher:15} | Key: {ref.bib_key} \n"
                       )
 
