@@ -67,7 +67,7 @@ class UI:
         book_data = self.sort_data(book_data, sorting_key, order)
         web_data = self.sort_data(web_data, sorting_key, order)
 
-        title_bar1 = f'{self.text_to_bold("Author")}                    {self.text_to_bold("Title")}                                         {self.text_to_bold("Year")} {self.text_to_bold("Publisher")}                 {self.text_to_bold("Key")}'
+        title_bar1 = f'{self.text_to_bold("Author")}                    {self.text_to_bold("Title")}                                         {self.text_to_bold("Year")} {self.text_to_bold("Publisher")}                 {self.text_to_bold("Key")}    {self.text_to_bold("Tagi")}'
         title_bar2 = "------------------------- --------------------------------------------- ---- ------------------------- -----------"
 
         print(f"Kirjaviitteet:\n{title_bar1}\n{title_bar2}")
@@ -104,13 +104,24 @@ class UI:
             self.app.delete_reference(key)
 
     def ref_to_delete(self, key):
-        book_ref = self.app.get_book_ref_with_key(key)
-        web_ref = self.app.get_web_ref_with_key(key)
+        data = self.app.get_all_references()
 
-        if book_ref is not None:
-            self.print_book_ref(book_ref)
-        if web_ref is not None:
-            self.print_web_ref(web_ref)
+        for ref in data:
+            author = ref.author
+            title = ref.title
+            publisher = ref.publisher
+
+            if len(author) > 15:
+                author = author[:11] + "..."
+            if len(title) > 15:
+                title = title[:11] + "..."
+            if len(publisher) > 15:
+                publisher = publisher[:11] + "..."
+
+            if key == ref.bib_key:
+                print(f"\nAuthor: {author:15} | Title: {title:15} | Year: {ref.year:4} \
+                    | Publisher: {publisher:15} | Key: {ref.bib_key:8} | Tag: {ref.tag}\n"
+                      )
 
     def text_to_bold(self, text):
         return "\033[1m" + text + "\033[0m"
