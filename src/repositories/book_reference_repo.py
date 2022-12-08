@@ -48,6 +48,6 @@ class BookReference:
     def get_tags(self):
         cursor = self.connection.cursor()
         data = cursor.execute(
-            "SELECT tag FROM bookreferences")
+            "SELECT tag FROM bookreferences").fetchall()
 
         return data
