@@ -24,23 +24,10 @@ class ReferenceLibrary:
                   self.db, self.reference_reader, self.bibtex_generator)
         self.ui = StubUI(app, self.reference_service)
 
-    def add_reference(self, author, title, year, publ, key):
+    def add_reference(self, author, title, year, publ, key, tag):
         # keywordilla Add Reference Values voi syöttää tälle metodille
         # halutut parametrit
-        self.ui.add_ref([author, title, year, publ, key])
-
-    # def run(self):
-    #     # dirname = os.path.dirname(__file__)
-    #     # self.db = Database()
-    #     # self.connection = sqlite3.connect(
-    #     #     os.path.join(dirname, "tests/robot_testi.db"))
-    #     # self.db.initialize_database(self.connection)
-    #     # self.book_reference = BookReference(self.connection)
-    #     # self.reference_service = ReferenceService(self.book_reference, InputValidator())
-    #     self.reference_reader = ReferenceReader()
-    #     app = App(self.connection, self.book_reference,
-    #               self.db, self.reference_reader)
-    #     self.ui = StubUI(app, self.reference_service)
+        self.ui.add_ref([author, title, year, publ, key, tag])
 
     def data_in_database_length_should_be(self, length):
         # Logiikka tässä on, että voimme tarkistaa, onko tietokannassa nyt haluttu
@@ -58,8 +45,8 @@ class ReferenceLibrary:
                 f"Output \"{value}\" is not in {str(output)}"
             )
 
-    def create_database_entry(self, author, title, year, publ, key):
-        data = [author, title, year, publ, key]
+    def create_database_entry(self, author, title, year, publ, key, tag):
+        data = [author, title, year, publ, key, tag]
         self.book_reference.add_to_table(data)
 
     def reset_database(self):
@@ -68,8 +55,8 @@ class ReferenceLibrary:
     def view_ref(self, sort_key, order):
         self.ui.view_ref(sort_key, order)
 
-    def create_bibtex_file(self, author, title, year, publisher, bib_key, filename):
-        data = [Reference(author, title, int(year), publisher, bib_key)]
+    def create_bibtex_file(self, author, title, year, publisher, bib_key, tag, filename):
+        data = [Reference(author, title, int(year), publisher, bib_key, tag)]
         self.bibtex_generator.create_bibtex_file(data, filename)
 
     def data_in_bibtex_file_should_be(self, filename):
