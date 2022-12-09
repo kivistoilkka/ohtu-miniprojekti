@@ -50,4 +50,4 @@ class BookReference:
         data = cursor.execute(
             "SELECT tag FROM bookreferences").fetchall()
 
-        return data
+        return set(data)

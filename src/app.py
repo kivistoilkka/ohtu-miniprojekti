@@ -10,8 +10,7 @@ class App:
         self.ref_service.add_reference(ref_list)
 
     def get_all_references(self):
-        refs = self.book_reference_repo.get_data()
-        return self.ref_service.format_references(refs)
+        return self.ref_service.get_all_references()
 
     def create_bibtex_file(self, data, filename):
         self.bibtex_generator.create_bibtex_file(data, filename)
@@ -23,8 +22,7 @@ class App:
         self.book_reference_repo.ref_to_delete(key)
 
     def filter_by_tag(self, tag):
-        refs = self.book_reference_repo.get_data_by_tag(tag)
-        return self.ref_service.format_references(refs)
+        return self.ref_service.get_references_by_tag(tag)
 
     def get_tags(self):
         return self.book_reference_repo.get_tags()
