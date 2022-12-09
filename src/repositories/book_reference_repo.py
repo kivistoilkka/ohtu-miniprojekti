@@ -10,16 +10,16 @@ class BookReferenceRepo:
 
     def add_to_table(self, data: list):
         self.cursor.execute(
-            "INSERT INTO bookreferences (author, title, year, publisher, bib_key)\
-            VALUES (?, ?, ?, ?, ?)",
+            "INSERT INTO bookreferences (author, title, year, publisher, bib_key, tag)\
+            VALUES (?, ?, ?, ?, ?, ?)",
             data
         )
 
         self.connection.commit()
 
-    def delete_from_table(self, ref_key):
+    def delete_from_table(self, key):
         self.cursor.execute(
-            "DELETE FROM bookreferences WHERE bib_key=?", (ref_key,)
+            "DELETE FROM bookreferences WHERE bib_key=?", (key,)
         )
 
         self.connection.commit()
@@ -29,3 +29,17 @@ class BookReferenceRepo:
             "SELECT * FROM bookreferences WHERE bib_key=?", (ref_key,)).fetchone()
 
         return data
+
+    def get_data_by_tag(self, tag):
+        cursor = self.connection.cursor()
+        data = cursor.execute(
+            "SELECT * FROM bookreferences WHERE tag=?", (tag,)).fetchall()
+
+        return data
+
+    def get_tags(self):
+        cursor = self.connection.cursor()
+        data = cursor.execute(
+            "SELECT tag FROM bookreferences").fetchall()
+
+        return set(data)

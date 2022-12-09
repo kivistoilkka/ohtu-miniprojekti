@@ -5,7 +5,7 @@ class InputValidator():
         pass
 
     def validate(self, reference_list):
-        if "" in reference_list:
+        if "" in reference_list[0:4]:
             raise ValueError("Jokin vaadituista tiedoista puuttuu")
         try:
             reference_list[2] = int(reference_list[2])

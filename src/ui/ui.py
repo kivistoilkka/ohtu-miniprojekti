@@ -58,23 +58,29 @@ class UI:
         return data
 
     def view_ref(self):
+        tag_set = self.app.get_tags()
+        tag = input(
+            f"Haluatko suodattaa listaa tagin perusteella? Syötä tagi tai jätä tyhjäksi. \n Tagit: {tag_set} ")
         sorting_key = input(
             "\nMillä perusteella haluat järjestää listan? \nVuosiluvun perusteella, paina 1 \nLisäysjärjestyksessä, paina 2 \n")
         order = input(
             "\nHaluatko listan \nNousevassa järjestyksessä, paina 1 \nLaskevassa järjestyksessä, paina 2 \n")
 
-        refs = self.app.get_all_references()
+        if tag == "":
+            refs = self.app.get_all_references()
+        else:
+            refs = self.app.filter_by_tag(tag)
         book_data = refs["book_references"]
         web_data = refs["web_references"]
-        book_data = self.sort_data(book_data, sorting_key, order)
-        web_data = self.sort_data(web_data, sorting_key, order)
+        book_data_sorted = self.sort_data(book_data, sorting_key, order)
+        web_data_sorted = self.sort_data(web_data, sorting_key, order)
 
         title_bar1 = f'{self.text_to_bold("Author")}                    {self.text_to_bold("Title")}                                         {self.text_to_bold("Year")} {self.text_to_bold("Publisher")}                 {self.text_to_bold("Key")}    {self.text_to_bold("Tagi")}'
         title_bar2 = "------------------------- --------------------------------------------- ---- ------------------------- -----------"
 
         print(self.text_to_bold(f"Kirjaviitteet:\n{title_bar1}\n{title_bar2}"))
 
-        for ref in book_data:
+        for ref in book_data_sorted:
             self.print_book_ref(ref)
 
         title_bar1 = f'{self.text_to_bold("Author")}                    {self.text_to_bold("Title")}                                         {self.text_to_bold("Year")} {self.text_to_bold("URL")}                       {self.text_to_bold("Key")}'
@@ -82,7 +88,7 @@ class UI:
 
         print(self.text_to_bold(f"Verkkosivuviitteet:\n{title_bar1}\n{title_bar2}"))
 
-        for ref in web_data:
+        for ref in web_data_sorted:
             self.print_web_ref(ref)
 
     def add_ref(self):

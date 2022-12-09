@@ -26,10 +26,10 @@ class ReferenceLibrary:
         app = App(self.db.get_database_connection(), self.reference_service, self.db, self.bibtex_generator)
         self.ui = StubUI(app, self.reference_service)
 
-    def add_reference(self, author, title, year, publ, key, ref_type_str):
+    def add_reference(self, author, title, year, publ, key, tag, ref_type_str):
         # keywordilla Add Reference Values voi syöttää tälle metodille
         # halutut parametrit
-        self.ui.add_ref([author, title, year, publ, key], ref_type_str)
+        self.ui.add_ref([author, title, year, publ, key, tag], ref_type_str)
 
     def data_in_database_length_should_be(self, length):
         # Logiikka tässä on, että voimme tarkistaa, onko tietokannassa nyt haluttu
@@ -48,8 +48,8 @@ class ReferenceLibrary:
                 f"Output \"{value}\" is not in {str(output)}"
             )
 
-    def create_database_entry(self, author, title, year, publ_or_url, key, ref_type_str):
-        data = [author, title, year, publ_or_url, key]
+    def create_database_entry(self, author, title, year, publ_or_url, key, tag, ref_type_str):
+        data = [author, title, year, publ_or_url, key, tag]
         if ref_type_str == "book_reference":
             self.book_reference_repo.add_to_table(data)
         elif ref_type_str == "website_reference":
@@ -67,8 +67,8 @@ class ReferenceLibrary:
             raise ValueError("Incorrect reference type")
         self.ui.view_ref(sort_key, order, type)
 
-    def create_bibtex_file(self, author, title, year, publisher, bib_key, filename):
-        data = [BookReference(author, title, int(year), publisher, bib_key)]
+    def create_bibtex_file(self, author, title, year, publisher, bib_key, tag, filename):
+        data = [BookReference(author, title, int(year), publisher, bib_key, tag)]
         self.bibtex_generator.create_bibtex_file(data, filename)
 
     def data_in_bibtex_file_should_be(self, filename):

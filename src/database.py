@@ -33,7 +33,8 @@ class Database:
                 title text,
                 year integer,
                 publisher text,
-                bib_key text unique
+                bib_key text unique,
+                tag text
             )
         ''')
 
@@ -44,7 +45,8 @@ class Database:
                 title text,
                 year integer,
                 url text,
-                bib_key text unique
+                bib_key text unique,
+                tag text
             )
         ''')
 

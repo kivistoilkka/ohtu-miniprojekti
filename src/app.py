@@ -19,3 +19,9 @@ class App:
 
     def key_used(self, key) -> bool:
         return self.reference_service.key_used(key)
+
+    def filter_by_tag(self, tag):
+        return self.reference_service.get_references_by_tag(tag)
+
+    def get_tags(self):
+        return self.reference_service.get_tags()
