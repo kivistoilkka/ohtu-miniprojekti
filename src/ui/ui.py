@@ -1,6 +1,7 @@
 import colorama
 from colorama import Fore
 from ui.reference_reader import ReferenceReader
+from entities.reference import Reference
 
 
 class UI:
@@ -60,29 +61,25 @@ class UI:
         return data
 
     def view_ref(self):
-        sorting_key = input(
-            "\nMillä perusteella haluat järjestää listan? \nVuosiluvun perusteella, paina 1 \nLisäysjärjestyksessä, paina 2 \n")
-        order = input(
-            "\nHaluatko listan \nNousevassa järjestyksessä, paina 1 \nLaskevassa järjestyksessä, paina 2 \n")
+        sort_or_not = input("Haluatko järjestää listan?(kyllä/ei)")
 
-        data = self.app.get_all_references()
-        data = self.sort_data(data, sorting_key, order)
+        if sort_or_not == 'kyllä':
+            sorting_key = input(
+                "\nMillä perusteella haluat järjestää listan? \nVuosiluvun perusteella, paina 1 \nLisäysjärjestyksessä, paina 2 \n")
+            order = input(
+                "\nHaluatko listan \nNousevassa järjestyksessä, paina 1 \nLaskevassa järjestyksessä, paina 2 \n")
 
-        for ref in data:
-            author = ref.author
-            title = ref.title
-            publisher = ref.publisher
+            data = self.app.get_all_references()
+            data = self.sort_data(data, sorting_key, order)
 
-            if len(author) > 15:
-                author = author[:11] + "..."
-            if len(title) > 15:
-                title = title[:11] + "..."
-            if len(publisher) > 15:
-                publisher = publisher[:11] + "..."
-
-            print(f"\n {self.text_to_bold('Author')}: {author:15} | {self.text_to_bold('Title')}: {title:15} | {self.text_to_bold('year')}: {ref.year:4} \
-| {self.text_to_bold('Publisher')}: {publisher:15} | {self.text_to_bold('key')}: {ref.bib_key} \n"
-                  )
+            for ref in data:
+                
+                print(ref)
+                
+        else:
+            data = self.app.get_all_references()
+            for ref in data:
+                print(ref)
 
     def add_ref(self):
         ref_list = self.reference_reader.ref_reader()
@@ -103,21 +100,8 @@ class UI:
         data = self.app.get_all_references()
 
         for ref in data:
-            author = ref.author
-            title = ref.title
-            publisher = ref.publisher
-
-            if len(author) > 15:
-                author = author[:11] + "..."
-            if len(title) > 15:
-                title = title[:11] + "..."
-            if len(publisher) > 15:
-                publisher = publisher[:11] + "..."
-
             if key == ref.bib_key:
-                print(f"\nAuthor: {self.text_to_bold(author):15} | Title: {title:15} | Year: {ref.year:4} \
-                    | Publisher: {publisher:15} | Key: {ref.bib_key} \n"
-                      )
+                print(ref)
 
     def text_to_bold(self, text):
         return "\033[1m" + text + "\033[0m"
