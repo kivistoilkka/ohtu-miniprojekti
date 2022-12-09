@@ -1,5 +1,5 @@
 *** Settings ***
-Library  ../ReferenceLibrary.py
+Library  ../../ReferenceLibrary.py
 
 *** Keywords ***
 Add Multiple Entries To Database

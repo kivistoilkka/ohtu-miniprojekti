@@ -71,7 +71,7 @@ class ReferenceService:
 
     def get_references_by_tag(self, tag:str):
         book_data = self.book_repo.get_data_by_tag(tag)
-        web_data = self.web_repo.get_data()
+        web_data = self.web_repo.get_data_by_tag()
         return self._format_references_data_to_object_lists_in_dict(book_data, web_data)
 
     def delete_reference(self, key) -> bool:

@@ -50,7 +50,7 @@ poetry run invoke format
 
 [Sprint backlog](https://docs.google.com/spreadsheets/d/1ucSjkzkqewl7hF1RMTIi3dRhN4YwD-RomEDwHivYZaI/)
 
-[Robot Frameworkin tiedostot](https://github.com/kivistoilkka/ohtu-miniprojekti/tree/main/src/tests)
+[Robot Frameworkin tiedostot](https://github.com/kivistoilkka/ohtu-miniprojekti/tree/main/src/tests/robot)
 
 ## Definition of done
 
