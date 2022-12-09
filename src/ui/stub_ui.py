@@ -1,3 +1,4 @@
+from services.reference_service import ReferenceType
 
 class StubUI:
     def __init__(self, app, ref_service) -> None:
@@ -17,10 +18,13 @@ class StubUI:
                 data.reverse()
         return data
 
-    def view_ref(self, sort_key, order):
+    def view_ref(self, sort_key, order, type):
 
-        data = self.reference_service.get_all_references()
-        data = self.sort_data(data, sort_key, order)
+        all_data = self.reference_service.get_all_references()
+        if type == ReferenceType.Book:
+            data = self.sort_data(all_data["book_references"], sort_key, order)
+        elif type == ReferenceType.Website:
+            data = self.sort_data(all_data["web_references"], sort_key, order)
 
         for ref in data:
             author = ref.author
@@ -38,5 +42,8 @@ class StubUI:
                 | Publisher: {publisher:15} | Key: {ref.bib_key} \n"
                                 )
 
-    def add_ref(self, ref_list):
-        self.reference_service.add_reference(ref_list)
+    def add_ref(self, ref_list, ref_type_str):
+        if ref_type_str == "book_reference":
+            self.reference_service.add_reference(ref_list, ReferenceType.Book)
+        elif ref_type_str == "web_reference":
+            self.reference_service.add_reference(ref_list, ReferenceType.Website)

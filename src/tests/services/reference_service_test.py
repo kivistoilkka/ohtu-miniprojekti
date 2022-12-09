@@ -1,5 +1,5 @@
 import unittest
-from services.book_reference_service import BookReferenceService
+from services.reference_service import ReferenceService, ReferenceType
 from entities.book_reference import BookReference
 
 
@@ -28,37 +28,41 @@ class TestReferenceService(unittest.TestCase):
     def setUp(self):
         pass
 
-    def test_valid_reference_can_be_added(self):
-        repo = StubRepo(["Test Author", "Test it to the limit",
+    def test_valid_book_reference_can_be_added(self):
+        book_repo = StubRepo(["Test Author", "Test it to the limit",
                         2022, "TestPublishing", "test22"], [])
+        web_repo = StubRepo([], [])
         validator = StubValidator()
-        ref_service = BookReferenceService(repo, validator)
+        ref_service = ReferenceService(book_repo, web_repo, validator)
         result = ref_service.add_reference(
-            ["Test Author", "Test it to the limit", 2022, "TestPublishing", "test22"])
+            ["Test Author", "Test it to the limit", 2022, "TestPublishing", "test22"], ReferenceType.Book)
         self.assertTrue(result)
-        self.assertEqual(len(repo.database_content), 1)
+        self.assertEqual(len(book_repo.database_content), 1)
 
-    def test_all_references_from_database_with_one_reference_can_be_fetched(self):
-        repo = StubRepo([], [
+    def test_all_references_from_database_with_one_book_reference_can_be_fetched(self):
+        book_repo = StubRepo([], [
             (1, "Test Author", "Test it to the limit",
              2022, "TestPublishing", "test22")
         ])
+        web_repo = StubRepo([], [])
         validator = StubValidator()
-        ref_service = BookReferenceService(repo, validator)
+        ref_service = ReferenceService(book_repo, web_repo, validator)
         expected_list = [BookReference(
             "Test Author", "Test it to the limit", 2022, "TestPublishing", "test22")]
         result = ref_service.get_all_references()
-        self.assertEqual(str(result[0]), str(expected_list[0]))
+        book_result = result["book_references"]
+        self.assertEqual(str(book_result[0]), str(expected_list[0]))
 
-    def test_all_references_from_database_with_two_references_can_be_fetched(self):
-        repo = StubRepo([], [
+    def test_all_references_from_database_with_two_book_references_can_be_fetched(self):
+        book_repo = StubRepo([], [
             (1, "Test Author", "Test it to the limit",
              2022, "TestPublishing", "test22"),
             (2, "Stanley", "This is a story about a man named Stanley",
              2013, "GC", "stan13")
         ])
         validator = StubValidator()
-        ref_service = BookReferenceService(repo, validator)
+        web_repo = StubRepo([], [])
+        ref_service = ReferenceService(book_repo, web_repo, validator)
         expected_list = [
             BookReference("Test Author", "Test it to the limit",
                       2022, "TestPublishing", "test22"),
@@ -66,5 +70,6 @@ class TestReferenceService(unittest.TestCase):
                 "Stanley", "This is a story about a man named Stanley", 2013, "GC", "stan13")
         ]
         result = ref_service.get_all_references()
-        for i, ref in enumerate(result):
+        book_result = result["book_references"]
+        for i, ref in enumerate(book_result):
             self.assertEqual(str(ref), str(expected_list[i]))

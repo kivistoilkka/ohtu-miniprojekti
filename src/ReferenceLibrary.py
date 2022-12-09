@@ -3,8 +3,7 @@ import pathlib
 from database import Database
 from app import App
 from ui.stub_ui import StubUI
-from services.book_reference_service import BookReferenceService
-from services.web_reference_service import WebReferenceService
+from services.reference_service import ReferenceService, ReferenceType
 from services.input_validator_service import InputValidator
 from services.bibtex_generator_service import BibtexGeneratorService
 from ui.reference_reader import ReferenceReader
@@ -18,39 +17,26 @@ class ReferenceLibrary:
         self.db = Database(testing_environment=True)
         self.book_reference_repo = BookReferenceRepo(self.db.get_database_connection())
         validator = InputValidator()
-        self.book_reference_service = BookReferenceService(
-            self.book_reference_repo, validator)
         self.web_reference_repo = WebReferenceRepo(self.db.get_database_connection())
-        self.web_reference_service = WebReferenceService(self.web_reference_repo, validator)
+        self.reference_service = ReferenceService(
+            self.book_reference_repo, self.web_reference_repo, validator
+        )
         self.reference_reader = ReferenceReader()
         self.bibtex_generator = BibtexGeneratorService()
-        app = App(self.db.get_database_connection(), self.book_reference_repo, self.book_reference_service,
-                  self.web_reference_repo, self.web_reference_service, self.db, self.bibtex_generator)
-        self.ui = StubUI(app, self.book_reference_service)
+        app = App(self.db.get_database_connection(), self.reference_service, self.db, self.bibtex_generator)
+        self.ui = StubUI(app, self.reference_service)
 
-    def add_reference(self, author, title, year, publ, key):
+    def add_reference(self, author, title, year, publ, key, ref_type_str):
         # keywordilla Add Reference Values voi syöttää tälle metodille
         # halutut parametrit
-        self.ui.add_ref([author, title, year, publ, key])
-
-    # def run(self):
-    #     # dirname = os.path.dirname(__file__)
-    #     # self.db = Database()
-    #     # self.connection = sqlite3.connect(
-    #     #     os.path.join(dirname, "tests/robot_testi.db"))
-    #     # self.db.initialize_database(self.connection)
-    #     # self.book_reference = BookReference(self.connection)
-    #     # self.reference_service = ReferenceService(self.book_reference, InputValidator())
-    #     self.reference_reader = ReferenceReader()
-    #     app = App(self.connection, self.book_reference,
-    #               self.db, self.reference_reader)
-    #     self.ui = StubUI(app, self.reference_service)
+        self.ui.add_ref([author, title, year, publ, key], ref_type_str)
 
     def data_in_database_length_should_be(self, length):
         # Logiikka tässä on, että voimme tarkistaa, onko tietokannassa nyt haluttu
         # Viite tarkistamalla datan pituuden
         data = self.ui.reference_service.get_all_references()
-        if len(data) != int(length):
+        data_as_list = data["book_references"] +  data["web_references"]
+        if len(data_as_list) != int(length):
             raise AssertionError(
                 f"There's something wrong, {len(data)} != {length}")
 
@@ -62,15 +48,24 @@ class ReferenceLibrary:
                 f"Output \"{value}\" is not in {str(output)}"
             )
 
-    def create_database_entry(self, author, title, year, publ, key):
-        data = [author, title, year, publ, key]
-        self.book_reference_repo.add_to_table(data)
+    def create_database_entry(self, author, title, year, publ_or_url, key, ref_type_str):
+        data = [author, title, year, publ_or_url, key]
+        if ref_type_str == "book_reference":
+            self.book_reference_repo.add_to_table(data)
+        elif ref_type_str == "website_reference":
+            self.web_reference_repo.add_to_table(data)
 
     def reset_database(self):
         self.db.reset_database()
 
-    def view_ref(self, sort_key, order):
-        self.ui.view_ref(sort_key, order)
+    def view_ref(self, sort_key, order, type_as_str):
+        if type_as_str == "book_references":
+            type = ReferenceType.Book
+        elif type_as_str == "web_references":
+            type = ReferenceType.Website
+        else:
+            raise ValueError("Incorrect reference type")
+        self.ui.view_ref(sort_key, order, type)
 
     def create_bibtex_file(self, author, title, year, publisher, bib_key, filename):
         data = [BookReference(author, title, int(year), publisher, bib_key)]

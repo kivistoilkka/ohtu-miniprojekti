@@ -24,7 +24,7 @@ class BookReferenceRepo:
 
         self.connection.commit()
 
-    def get_ref_with_key(self, ref_key):
+    def get_reference(self, ref_key):
         data = self.cursor.execute(
             "SELECT * FROM bookreferences WHERE bib_key=?", (ref_key,)).fetchone()
 

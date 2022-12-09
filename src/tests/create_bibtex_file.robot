@@ -9,11 +9,11 @@ Correct File With Correct Content Is Created
     
 *** Keywords ***
 Add Multiple Entries To Database
-    Create Database Entry  Testaaja1  Testikirja1  2001  Unigrafia  test01
+    Create Database Entry  Testaaja1  Testikirja1  2001  Unigrafia  test01  book_reference
 
 Add Entry To Database
-    [Arguments]  ${author}  ${title}  ${year}  ${publisher}  ${key}
-    Create Database Entry  ${author}  ${title}  ${year}  ${publisher}  ${key}
+    [Arguments]  ${author}  ${title}  ${year}  ${publisher}  ${key}  ${ref_type_str}
+    Create Database Entry  ${author}  ${title}  ${year}  ${publisher}  ${key}  ${ref_type_str}
 
 Reset Database And Add Multiple Entries To Database
     Reset Database

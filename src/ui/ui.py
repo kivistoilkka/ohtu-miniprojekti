@@ -1,5 +1,5 @@
 from ui.reference_reader import ReferenceReader
-
+from services.reference_service import ReferenceType
 
 class UI:
     def __init__(self, app):
@@ -40,6 +40,7 @@ class UI:
                         "Poista viite, paina 4",
                         "Sulje ohjelma, paina 5"]
 
+        print("\n-----------")
         print(self.text_to_bold("Mitä haluat tehdä?"))
         for instruction in instructions:
             print("\n" + instruction)
@@ -62,15 +63,16 @@ class UI:
         order = input(
             "\nHaluatko listan \nNousevassa järjestyksessä, paina 1 \nLaskevassa järjestyksessä, paina 2 \n")
 
-        book_data = self.app.get_all_book_references()
-        web_data = self.app.get_all_web_references()
+        refs = self.app.get_all_references()
+        book_data = refs["book_references"]
+        web_data = refs["web_references"]
         book_data = self.sort_data(book_data, sorting_key, order)
         web_data = self.sort_data(web_data, sorting_key, order)
 
         title_bar1 = f'{self.text_to_bold("Author")}                    {self.text_to_bold("Title")}                                         {self.text_to_bold("Year")} {self.text_to_bold("Publisher")}                 {self.text_to_bold("Key")}    {self.text_to_bold("Tagi")}'
         title_bar2 = "------------------------- --------------------------------------------- ---- ------------------------- -----------"
 
-        print(f"Kirjaviitteet:\n{title_bar1}\n{title_bar2}")
+        print(self.text_to_bold(f"Kirjaviitteet:\n{title_bar1}\n{title_bar2}"))
 
         for ref in book_data:
             self.print_book_ref(ref)
@@ -78,7 +80,7 @@ class UI:
         title_bar1 = f'{self.text_to_bold("Author")}                    {self.text_to_bold("Title")}                                         {self.text_to_bold("Year")} {self.text_to_bold("URL")}                       {self.text_to_bold("Key")}'
         title_bar2 = "------------------------- --------------------------------------------- ---- ------------------------- -----------"
 
-        print(f"Verkkosivuviitteet:\n{title_bar1}\n{title_bar2}")
+        print(self.text_to_bold(f"Verkkosivuviitteet:\n{title_bar1}\n{title_bar2}"))
 
         for ref in web_data:
             self.print_web_ref(ref)
@@ -88,40 +90,40 @@ class UI:
             "Haluatko tallentaa kirjaviitteen (paina 1) vai verkkosivuviitteen (paina 2): ")
         if answer == "1":
             ref_list = self.reference_reader.book_ref_reader()
-            self.app.add_book_reference(ref_list)
+            key = ref_list[4]
+            if self.app.key_used(key):
+                print("Valitsemasi avain on jo käytössä")
+            else:
+                self.app.add_reference(ref_list, ReferenceType.Book)
         elif answer == "2":
             ref_list = self.reference_reader.web_ref_reader()
-            self.app.add_web_reference(ref_list)
+            key = ref_list[4]
+            if self.app.key_used(key):
+                print("Valitsemasi avain on jo käytössä")
+            else:
+                self.app.add_reference(ref_list, ReferenceType.Website)
 
     def del_ref(self):
         key = input("\nAnna avain:")
 
-        self.ref_to_delete(key)
+        print(self._get_ref_to_delete(key))
 
-        answer = input("Haluatko varmasti poistaa viitteen?(kyllä/en)\n")
+        answer = input("Haluatko varmasti poistaa viitteen?(kyllä k/en e)\n")
 
-        if answer == "kyllä":
-            self.app.delete_reference(key)
+        if answer == "k":
+            result = self.app.delete_reference(key)
+            if result:
+                print("Viitteen poisto onnistui")
+            else:
+                print("Viitteen poisto ei onnistunut")
 
-    def ref_to_delete(self, key):
-        data = self.app.get_all_references()
+    def _get_ref_to_delete(self, key):
+        refs = self.app.get_all_references()
+        data = refs["book_references"] + refs["web_references"]
 
         for ref in data:
-            author = ref.author
-            title = ref.title
-            publisher = ref.publisher
-
-            if len(author) > 15:
-                author = author[:11] + "..."
-            if len(title) > 15:
-                title = title[:11] + "..."
-            if len(publisher) > 15:
-                publisher = publisher[:11] + "..."
-
             if key == ref.bib_key:
-                print(f"\nAuthor: {author:15} | Title: {title:15} | Year: {ref.year:4} \
-                    | Publisher: {publisher:15} | Key: {ref.bib_key:8} | Tag: {ref.tag}\n"
-                      )
+                return str(ref)
 
     def text_to_bold(self, text):
         return "\033[1m" + text + "\033[0m"

@@ -27,5 +27,5 @@ class TestBookReference(unittest.TestCase):
         data = ["Test Author", "Test it to the limit",
                 2022, "TestPublishing", "test22"]
         self.book_reference.add_to_table(data)
-        self.assertEqual(self.book_reference.get_ref_with_key(
+        self.assertEqual(self.book_reference.get_reference(
             data[-1])[-1], data[-1])
