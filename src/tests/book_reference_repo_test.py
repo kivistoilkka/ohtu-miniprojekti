@@ -12,9 +12,15 @@ class TestBookReference(unittest.TestCase):
         self.db.reset_database()
         self.book_reference = BookReference(self.db.get_database_connection())
 
-    def test_add_to_table_adds_data_to_database(self):
+    def test_add_to_table_adds_data_to_database_without_tag(self):
         data = ["Test Author", "Test it to the limit",
                 2022, "TestPublishing", "test22", ""]
+        self.book_reference.add_to_table(data)
+        self.assertEqual(len(self.book_reference.get_data()), 1)
+
+    def test_add_to_table_adds_data_to_database_with_tag(self):
+        data = ["Test Author", "Test it to the limit",
+                2022, "TestPublishing", "test22", "test_tag"]
         self.book_reference.add_to_table(data)
         self.assertEqual(len(self.book_reference.get_data()), 1)
 

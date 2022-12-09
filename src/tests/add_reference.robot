@@ -3,7 +3,7 @@ Resource  resource.robot
 Test Setup  Reset Database
 
 *** Test Cases ***
-Add Reference Successful
+Add Reference With Tag Successful
     Add Reference Values  testiauthor  testititle  0000  testipublisher  abc  tag1
     Data In Database Length Should Be  1
 
@@ -15,6 +15,10 @@ Add Second Reference Successful
 Add Existing Reference
     Add Reference Values  testiauthor  testititle  0000  testipublisher  abc  tag1
     Add Reference Values  testiauthor  testititle  0000  testipublisher  abc  tag2
+    Data In Database Length Should Be  1
+
+Add Reference Without Tag Successful
+    Add Reference Values  testiauthor  testititle  0000  testipublisher  abc  ${EMPTY}
     Data In Database Length Should Be  1
 
 *** Keywords ***
