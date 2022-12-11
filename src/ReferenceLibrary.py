@@ -68,7 +68,8 @@ class ReferenceLibrary:
         self.ui.view_ref(sort_key, order, type)
 
     def create_bibtex_file(self, author, title, year, publisher, bib_key, tag, filename):
-        data = [BookReference(author, title, int(year), publisher, bib_key, tag)]
+        data = {'bookreference': [BookReference(
+            author, title, int(year), publisher, bib_key, tag)]}
         self.bibtex_generator.create_bibtex_file(data, filename)
 
     def data_in_bibtex_file_should_be(self, filename):
