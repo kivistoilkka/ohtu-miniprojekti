@@ -86,7 +86,7 @@ class UI:
         web_data_sorted = self.sort_data(web_data, sorting_key, order)
 
         title_bar1 = f'{self.text_to_bold("Author")}                    {self.text_to_bold("Title")}                                         {self.text_to_bold("Year")} {self.text_to_bold("Publisher")}                 {self.text_to_bold("Key")}   {self.text_to_bold("Tagi")}'
-        title_bar2 = "------------------------- --------------------------------------------- ---- ------------------------- ----- -----"
+        title_bar2 = "------------------------- --------------------------------------------- ---- ------------------------- ----- ----------"
 
         print(self.text_to_bold(f"Kirjaviitteet:\n{title_bar1}\n{title_bar2}"))
 
@@ -94,7 +94,7 @@ class UI:
             self.print_book_ref(ref)
 
         title_bar1 = f'{self.text_to_bold("Author")}                    {self.text_to_bold("Title")}                                         {self.text_to_bold("Year")} {self.text_to_bold("URL")}                       {self.text_to_bold("Key")}   {self.text_to_bold("Tagi")}'
-        title_bar2 = "------------------------- --------------------------------------------- ---- ------------------------- ----- -----"
+        title_bar2 = "------------------------- --------------------------------------------- ---- ------------------------- ----- ----------"
 
         print(self.text_to_bold(f"Verkkosivuviitteet:\n{title_bar1}\n{title_bar2}"))
 
@@ -160,7 +160,7 @@ class UI:
         if len(bib_key) > 8:
             bib_key = bib_key[:8] + "..."
 
-        print(f"{author:25} {title:45} {ref.year:4} {publisher:25} {bib_key:7} {tag:5}\n")
+        print(f"{author:25} {title:45} {ref.year:4} {publisher:25} {bib_key:7} {tag:15}\n")
 
     def print_web_ref(self, ref):
         author = ref.author
@@ -178,4 +178,4 @@ class UI:
         if len(bib_key) > 8:
             bib_key = bib_key[:8] + "..."
 
-        print(f"{author:25} {title:45} {ref.year:4} {url:25} {bib_key:11} {tag:5}\n")
+        print(f"{author:25} {title:45} {ref.year:4} {url:25} {bib_key:11} {tag:15}\n")
