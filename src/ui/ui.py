@@ -1,3 +1,5 @@
+from colorama import Fore
+from getkey import getkey
 from ui.reference_reader import ReferenceReader
 from services.reference_service import ReferenceType
 
@@ -15,7 +17,7 @@ class UI:
                 "3": self.add_ref, "4": self.del_ref
             }
 
-            option = input()
+            option = getkey()
 
             if option in options:
                 options[option]()
@@ -29,7 +31,7 @@ class UI:
 
         try:
             self.app.create_bibtex_file(data, filename)
-            print("Tiedosto luotu projektin juurihakemistoon!")
+            print(Fore.GREEN + "Tiedosto luotu projektin juurihakemistoon!\n")
         except ValueError as error:
             print(error, "\n")
 
@@ -40,8 +42,7 @@ class UI:
                         "Poista viite, paina 4",
                         "Sulje ohjelma, paina 5"]
 
-        print("\n-----------")
-        print(self.text_to_bold("Mitä haluat tehdä?"))
+        print(self.text_to_bold(Fore.WHITE + "\nMitä haluat tehdä?"))
         for instruction in instructions:
             print("\n" + instruction)
 
@@ -67,11 +68,14 @@ class UI:
     
         tag = input(
             f"Haluatko suodattaa listaa tagin perusteella? Syötä tagi tai jätä tyhjäksi. \n Tagit: {tag_string} ")
-        sorting_key = input(
+         
+        print(
             "\nMillä perusteella haluat järjestää listan? \nVuosiluvun perusteella, paina 1 \nLisäysjärjestyksessä, paina 2 \n")
-        order = input(
+        sorting_key = getkey()
+     
+        print(
             "\nHaluatko listan \nNousevassa järjestyksessä, paina 1 \nLaskevassa järjestyksessä, paina 2 \n")
-
+        order = getkey()
         if tag == "":
             refs = self.app.get_all_references()
         else:
@@ -98,8 +102,9 @@ class UI:
             self.print_web_ref(ref)
 
     def add_ref(self):
-        answer = input(
+        print(
             "Haluatko tallentaa kirjaviitteen (paina 1) vai verkkosivuviitteen (paina 2): ")
+        answer = getkey()
         if answer == "1":
             ref_list = self.reference_reader.book_ref_reader()
             key = ref_list[4]
@@ -124,13 +129,14 @@ class UI:
         except Exception as error:
             print(error)
             return
-        answer = input("Haluatko varmasti poistaa viitteen?(kyllä k/en e)\n")
+        print(Fore.RED + "Haluatko varmasti poistaa viitteen?(kyllä k/en e)\n")
+        answer = getkey()
         if answer == "k":
             result = self.app.delete_reference(key)
             if result:
-                print("Viitteen poisto onnistui")
+                print(Fore.GREEN + "Viitteen poisto onnistui")
             else:
-                print("Viitteen poisto ei onnistunut")
+                print(Fore.RED + "Viitteen poisto ei onnistunut")
 
     def _get_ref_to_delete(self, bib_key):
         return str(self.app.get_reference(bib_key))

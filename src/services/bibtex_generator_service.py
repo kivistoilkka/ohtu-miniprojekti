@@ -3,9 +3,10 @@ class BibtexGeneratorService:
         pass
 
     def create_bibtex_file(self, refs: dict, filename: str):
-        if len(refs) == 0:
+        # Raise an error if all the reference lists are empty
+        if not any(refs.values()):
             raise ValueError(
-                "Lisättyjä viitteitä ei ole, joten BibTeX-tiedostoa ei voi luoda!")
+                 "Lisättyjä viitteitä ei ole, joten BibTeX-tiedostoa ei voi luoda!")
         if not filename.endswith(".bib"):
             filename += ".bib"
 
