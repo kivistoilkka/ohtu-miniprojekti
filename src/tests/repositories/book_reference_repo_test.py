@@ -45,12 +45,3 @@ class TestBookReference(unittest.TestCase):
         self.book_reference.add_to_table(data)
         self.assertEqual(
             len(self.book_reference.get_data_by_tag("testitagi")), 1)
-
-    def test_get_tags_returns_right_list(self):
-        data = ["Test Author", "Test it to the limit",
-                2022, "TestPublishing", "test22", "testitagi"]
-        self.book_reference.add_to_table(data)
-        data = ["Test Author", "Test it to the limit",
-                2022, "TestPublishing", "test222", "testitagi2"]
-        self.book_reference.add_to_table(data)
-        self.assertEqual(len(self.book_reference.get_tags()), 2)
