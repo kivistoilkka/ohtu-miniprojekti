@@ -18,23 +18,23 @@ class StubUI:
                 data.reverse()
         return data
 
-    def view_ref(self, sort_key, order, tag, type):
+    def view_ref(self, sort_key, order, tag, ref_type):
         if tag != "":
             all_data = self.reference_service.get_references_by_tag(tag)
         else:
             all_data = self.reference_service.get_all_references()
-        if type == ReferenceType.Book:
+        if ref_type == ReferenceType.Book:
             data = self.sort_data(all_data["book_references"], sort_key, order)
-        elif type == ReferenceType.Website:
+        elif ref_type == ReferenceType.Website:
             data = self.sort_data(all_data["web_references"], sort_key, order)
 
         for ref in data:
             author = ref.author
             title = ref.title
 
-            if type == ReferenceType.Book:
-                publisher_or_url = ref.publisher 
-            elif type == ReferenceType.Website:
+            if ref_type == ReferenceType.Book:
+                publisher_or_url = ref.publisher
+            elif ref_type == ReferenceType.Website:
                 publisher_or_url = ref.url
 
             if len(author) > 15:

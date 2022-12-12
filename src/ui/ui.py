@@ -78,11 +78,13 @@ class UI:
                     "Lisäysjärjestyksessä, paina 2 \n"
 
         print(order_msg)
-        
+
         sorting_key = getkey()
 
-        print(
-            "\nHaluatko listan \nNousevassa järjestyksessä, paina 1 \nLaskevassa järjestyksessä, paina 2 \n")
+        order_msg = "\nHaluatko listan \nNousevassa järjestyksessä, paina 1 "\
+                    "\nLaskevassa järjestyksessä, paina 2 \n"
+
+        print(order_msg)
         order = getkey()
         if tag == "":
             refs = self.app.get_all_references()
@@ -94,7 +96,8 @@ class UI:
         web_data_sorted = self.sort_data(web_data, sorting_key, order)
 
         title_bar1 = f'{self.text_to_bold("Author")}                    {self.text_to_bold("Title")}                                         {self.text_to_bold("Year")} {self.text_to_bold("Publisher")}                 {self.text_to_bold("Key")}   {self.text_to_bold("Tagi")}'
-        title_bar2 = "------------------------- --------------------------------------------- ---- ------------------------- ----- ----------"
+        title_bar2 = "------------------------- --------------------------------------------- "\
+                     "---- ------------------------- ----- ----------"
 
         print(self.text_to_bold(f"Kirjaviitteet:\n{title_bar1}\n{title_bar2}"))
 
@@ -102,7 +105,8 @@ class UI:
             self.print_book_ref(ref)
 
         title_bar1 = f'{self.text_to_bold("Author")}                    {self.text_to_bold("Title")}                                         {self.text_to_bold("Year")} {self.text_to_bold("URL")}                       {self.text_to_bold("Key")}   {self.text_to_bold("Tagi")}'
-        title_bar2 = "------------------------- --------------------------------------------- ---- ------------------------- ----- ----------"
+        title_bar2 = "------------------------- --------------------------------------------- "\
+                     "---- ------------------------- ----- ----------"
 
         print(self.text_to_bold(f"Verkkosivuviitteet:\n{title_bar1}\n{title_bar2}"))
 
