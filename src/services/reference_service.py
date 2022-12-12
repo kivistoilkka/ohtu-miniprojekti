@@ -74,14 +74,18 @@ class ReferenceService:
         web_data = self.web_repo.get_data_by_tag(tag)
         return self._format_references_data_to_object_lists_in_dict(book_data, web_data)
 
-    def delete_reference(self, key) -> bool:
-        if self.book_repo.get_reference(key):
-            self.book_repo.delete_from_table(key)
+    def delete_reference(self, bib_key, ref_type) -> bool:
+        if ref_type == ReferenceType.Book:
+            self.book_repo.delete_from_table(bib_key)
             return True
-        elif self.web_repo.get_reference(key):
-            self.web_repo.delete_from_table(key)
+        elif ref_type == ReferenceType.Website:
+            self.web_repo.delete_from_table(bib_key)
             return True
         return False
 
-    def get_reference(self, key):
-        self.book_repo.get_reference(key)
+    def get_reference(self, bib_key, ref_type):
+        if ref_type == ReferenceType.Book:
+            return self.book_repo.get_reference(bib_key)
+        elif ref_type == ReferenceType.Website:
+            return self.web_repo.get_reference(bib_key)
+        raise ValueError("Virheellinen viitteen tyyppi")

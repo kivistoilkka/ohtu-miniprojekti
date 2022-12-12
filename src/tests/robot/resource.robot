@@ -11,6 +11,9 @@ Add Entry To Database
     [Arguments]  ${author}  ${title}  ${year}  ${publisher}  ${key}  ${tag}  ${ref_type_str}
     Create Database Entry  ${author}  ${title}  ${year}  ${publisher}  ${key}  ${tag}  ${ref_type_str}
 
+Add Entry To Database Without Tag
+    Create Database Entry  Testaaja4  Testikirja4  2003  Unigrafia  test04  ${EMPTY}  book_reference
+
 Reset Database And Add Multiple Entries To Database
     Reset Database
     Add Multiple Entries To Database

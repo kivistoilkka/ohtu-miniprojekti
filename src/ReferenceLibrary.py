@@ -58,14 +58,14 @@ class ReferenceLibrary:
     def reset_database(self):
         self.db.reset_database()
 
-    def view_ref(self, sort_key, order, type_as_str):
+    def view_ref(self, sort_key, order, tag, type_as_str):
         if type_as_str == "book_references":
             type = ReferenceType.Book
         elif type_as_str == "web_references":
             type = ReferenceType.Website
         else:
             raise ValueError("Incorrect reference type")
-        self.ui.view_ref(sort_key, order, type)
+        self.ui.view_ref(sort_key, order, tag, type)
 
     def create_bibtex_file(self, author, title, year, publisher, bib_key, tag, filename):
         data = {'book_references': [BookReference(
