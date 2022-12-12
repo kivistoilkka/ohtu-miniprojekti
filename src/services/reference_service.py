@@ -22,7 +22,8 @@ class ReferenceService:
                 self.web_repo.add_to_table(fixed_data)
                 return True
             return False
-        except Exception:
+        except Exception as error:
+            input(f"\n{error}, paina enter jatkaaksesi.")
             return False
 
     def _create_book_reference_object(
