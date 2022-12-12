@@ -13,6 +13,8 @@ authors = [
 [tool.poetry.dependencies]
 python = "^3.8"
 invoke = "^1.7.3"
+getkey = "^0.6.5"
+colorama = "^0.4.6"
 
 
 [tool.poetry.group.dev.dependencies]

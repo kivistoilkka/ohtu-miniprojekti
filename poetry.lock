@@ -44,7 +44,7 @@ tomli = "*"
 name = "colorama"
 version = "0.4.6"
 description = "Cross-platform colored terminal text."
-category = "dev"
+category = "main"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,>=2.7"
 
@@ -80,6 +80,14 @@ python-versions = ">=3.7"
 
 [package.extras]
 test = ["pytest (>=6)"]
+
+[[package]]
+name = "getkey"
+version = "0.6.5"
+description = "Read single characters and key-strokes"
+category = "main"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "iniconfig"
@@ -267,7 +275,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "4dcca066c5fa7201213a9bf94b0289b6e4e1f8e35c89ab8ee6e152352d328141"
+content-hash = "ede39071e75ade0038dcfab9f43dde2da30178d89f72f4b846ca3bf99f3a3d7e"
 
 [metadata.files]
 astroid = [
@@ -345,6 +353,9 @@ dill = [
 exceptiongroup = [
     {file = "exceptiongroup-1.0.4-py3-none-any.whl", hash = "sha256:542adf9dea4055530d6e1279602fa5cb11dab2395fa650b8674eaec35fc4a828"},
     {file = "exceptiongroup-1.0.4.tar.gz", hash = "sha256:bd14967b79cd9bdb54d97323216f8fdf533e278df937aa2a90089e7d6e06e5ec"},
+]
+getkey = [
+    {file = "getkey-0.6.5.tar.gz", hash = "sha256:68c7c702c3b34deacf427f6c0f1fd66c5c2aa12d7801aa32442fc1a71c8ce059"},
 ]
 iniconfig = [
     {file = "iniconfig-1.1.1-py2.py3-none-any.whl", hash = "sha256:011e24c64b7f47f6ebd835bb12a743f2fbe9a26d4cecaa7f53bc4f35ee9da8b3"},
