@@ -46,11 +46,11 @@ class App:
 
     def get_reference(self, bib_key):
         data = self.key_used(bib_key)
-        if data:
-            if data == "bookreference":
-                return self.reference_service.get_reference(bib_key, ReferenceType.Book)
-            elif data == "webreference":
-                return self.reference_service.get_reference(bib_key, ReferenceType.Website)
-            raise ValueError("Virhe viitteen taulun tiedossa")
-        else:
+        if not data:
             raise ValueError("Viitettä ei löytynyt")
+
+        if data == "bookreference":
+            return self.reference_service.get_reference(bib_key, ReferenceType.Book)
+        if data == "webreference":
+            return self.reference_service.get_reference(bib_key, ReferenceType.Website)
+        raise ValueError("Virhe viitteen taulun tiedossa")

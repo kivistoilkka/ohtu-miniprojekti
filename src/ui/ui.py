@@ -64,13 +64,21 @@ class UI:
         tag_string = ""
         for tag in tags:
             tag_string += tag + ', '
-        tag_string[:-2]
+        tag_string = tag_string[:-2]
 
-        tag = input(
-            f"Haluatko suodattaa listaa tagin perusteella? Syötä tagi tai jätä tyhjäksi. \n Tagit: {tag_string} ")
+        tag_msg = (
+            f"Haluatko suodattaa listaa tagin perusteella? Syötä tagi tai jätä tyhjäksi. \n "
+            f"Tagit: {tag_string} "
+        )
 
-        print(
-            "\nMillä perusteella haluat järjestää listan? \nVuosiluvun perusteella, paina 1 \nLisäysjärjestyksessä, paina 2 \n")
+        tag = input(tag_msg)
+
+        order_msg = "\nMillä perusteella haluat järjestää listan? \n"\
+                    "Vuosiluvun perusteella, paina 1 \n"\
+                    "Lisäysjärjestyksessä, paina 2 \n"
+
+        print(order_msg)
+        
         sorting_key = getkey()
 
         print(
