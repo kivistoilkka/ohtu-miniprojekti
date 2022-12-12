@@ -25,7 +25,6 @@ class BibtexGeneratorService:
 
                         BibtexGeneratorService._write_book_ref_to_bibtex_file(
                             file, bib_key, author, title, publisher, year)
-
                 elif type == "web_references":
                     for ref in ref_list:
                         bib_key = ref.bib_key
@@ -38,8 +37,9 @@ class BibtexGeneratorService:
 
                         BibtexGeneratorService._write_web_ref_to_bibtex_file(
                             file, bib_key, author, title, url, year)
+                else:
+                    raise ValueError("Vain kirja- ja verkkosivuviitteet ovat sallittuja!")
                 
-
     @staticmethod
     def _replace_scandinavic_characters(string: str):
         replacements = {
