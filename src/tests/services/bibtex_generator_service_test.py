@@ -12,15 +12,15 @@ class TestBookReference(unittest.TestCase):
     def setUp(self):
         self.bibtex_generator = BibtexGeneratorService()
 
-    def test_create_bibtex_file_creates_correct_file(self):
+    def test_create_bibtex_file_creates_correct_file_with_only_book_references(self):
         refs = {'book_references': [BookReference(
-            "Yrjänä Änkyräinen", "Test it to the limit", 2022, "TestPublishing", "test22", "")]}
+            "Yrjänä Änkyräinen", "Test it to the limit", 2022, "TestPublishing", "test22", "")], 'web_references': []}
         self.bibtex_generator.create_bibtex_file(refs, "test.bib")
 
         correct_file = """@book{test22,\n  author     = "Yrj{\\"a}n{\\"a} {\\"A}nkyr{\\"a}inen",\n  title      = "Test it to the limit",\n  publisher  = "TestPublishing",\n  year       = 2022\n}\n\n"""
 
         self.assertEqual(self.TEST_FILE.open().read(), correct_file)
 
-    def test_create_bibtex_file_raises_an_exception_if_there_is_no_references(self):
+    def test_create_bibtex_file_raises_an_exception_if_there_are_no_references(self):
         self.assertRaises(
-            ValueError, self.bibtex_generator.create_bibtex_file, [], "test.bib")
+            ValueError, self.bibtex_generator.create_bibtex_file, {"book_references": [], "web_references": []}, "test.bib")
