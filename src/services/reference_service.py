@@ -23,8 +23,7 @@ class ReferenceService:
                 return True
             return False
         except Exception as error:
-            input(f"\n{error}, paina enter jatkaaksesi.")
-            return False
+            print('\n',error)
 
     def _create_book_reference_object(
         self,
