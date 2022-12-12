@@ -1,5 +1,6 @@
 import colorama
 from colorama import Fore
+from getkey import getkey, keys
 from ui.reference_reader import ReferenceReader
 from entities.reference import Reference
 
@@ -18,7 +19,7 @@ class UI:
                 "3": self.add_ref, "4": self.del_ref
             }
 
-            option = input()
+            option = getkey()
 
             if option in options:
                 options[option]()
@@ -32,7 +33,7 @@ class UI:
 
         try:
             self.app.create_bibtex_file(data, filename)
-            print("Tiedosto luotu projektin juurihakemistoon!")
+            print("Tiedosto luotu projektin juurihakemistoon!\n")
         except ValueError as error:
             print(error, "\n")
 
@@ -43,7 +44,7 @@ class UI:
                         "Poista viite, paina 4",
                         "Sulje ohjelma, paina 5"]
 
-        print(self.text_to_bold("Mitä haluat tehdä?"))
+        print(self.text_to_bold("\nMitä haluat tehdä?"))
         for instruction in instructions:
             print("\n" + instruction)
 
@@ -90,7 +91,7 @@ class UI:
 
         self.ref_to_delete(key)
 
-        answer = input(Fore.RED + "Haluatko varmasti poistaa viitteen?(kyllä/en)\n")
+        answer = input(Fore.RED + "\nHaluatko varmasti poistaa viitteen?(kyllä/en)\n")
 
         if answer == "kyllä":
             self.app.delete_reference(key)
