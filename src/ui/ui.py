@@ -103,15 +103,17 @@ class UI:
         if answer == "1":
             ref_list = self.reference_reader.book_ref_reader()
             key = ref_list[4]
-            if self.app.key_used(key):
-                print("Valitsemasi avain on jo käytössä")
+            key_used_in_table = self.app.key_used(key)
+            if key_used_in_table:
+                print(f"Valitsemasi avain on jo käytössä taulussa {key_used_in_table}")
             else:
                 self.app.add_reference(ref_list, ReferenceType.Book)
         elif answer == "2":
             ref_list = self.reference_reader.web_ref_reader()
             key = ref_list[4]
-            if self.app.key_used(key):
-                print("Valitsemasi avain on jo käytössä")
+            key_used_in_table = self.app.key_used(key)
+            if key_used_in_table:
+                print(f"Valitsemasi avain on jo käytössä taulussa {key_used_in_table}")
             else:
                 self.app.add_reference(ref_list, ReferenceType.Website)
 

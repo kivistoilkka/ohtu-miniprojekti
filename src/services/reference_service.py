@@ -85,13 +85,3 @@ class ReferenceService:
 
     def get_reference(self, key):
         self.book_repo.get_reference(key)
-
-    def key_used(self, key) -> bool:
-        if self.book_repo.get_reference(key) or self.web_repo.get_reference(key):
-            return True
-        return False
-
-    # def get_tags(self):
-    #     book_tags = self.book_repo.get_tags()
-    #     web_tags = self.web_repo.get_tags()
-    #     return book_tags.union(web_tags)

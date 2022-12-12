@@ -17,8 +17,11 @@ class App:
     def delete_reference(self, key):
         self.reference_service.delete_reference(key)
 
-    def key_used(self, key) -> bool:
-        return self.reference_service.key_used(key)
+    def key_used(self, bib_key) -> str:
+        data = self.db.key_used(bib_key)
+        if data:
+            return data[0]
+        return None
 
     def filter_by_tag(self, tag):
         return self.reference_service.get_references_by_tag(tag)
