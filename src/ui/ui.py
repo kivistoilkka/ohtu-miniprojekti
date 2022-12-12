@@ -60,19 +60,19 @@ class UI:
 
     def view_ref(self):
         tags = self.app.get_tags()
-        
+
         tag_string = ""
         for tag in tags:
             tag_string += tag + ', '
         tag_string[:-2]
-    
+
         tag = input(
             f"Haluatko suodattaa listaa tagin perusteella? Syötä tagi tai jätä tyhjäksi. \n Tagit: {tag_string} ")
-         
+
         print(
             "\nMillä perusteella haluat järjestää listan? \nVuosiluvun perusteella, paina 1 \nLisäysjärjestyksessä, paina 2 \n")
         sorting_key = getkey()
-     
+
         print(
             "\nHaluatko listan \nNousevassa järjestyksessä, paina 1 \nLaskevassa järjestyksessä, paina 2 \n")
         order = getkey()

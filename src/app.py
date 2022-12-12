@@ -21,11 +21,10 @@ class App:
         if data:
             if data == "bookreference":
                 return self.reference_service.delete_reference(bib_key, ReferenceType.Book)
-            elif data == "webreference":
+            if data == "webreference":
                 return self.reference_service.delete_reference(bib_key, ReferenceType.Website)
             raise ValueError("Virhe viitteen taulun tiedossa")
-        else:
-            raise ValueError("Viitettä ei löytynyt")
+        raise ValueError("Viitettä ei löytynyt")
 
     def key_used(self, bib_key) -> str:
         data = self.db.key_used(bib_key)
@@ -39,7 +38,7 @@ class App:
     def get_tags(self):
         data = self.db.get_used_tags_from_database()
         tags = []
-        
+
         for tag in data:
             tags.append(tag[0])
 
