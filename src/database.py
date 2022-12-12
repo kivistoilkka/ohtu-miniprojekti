@@ -63,3 +63,12 @@ class Database:
     def reset_database(self):
         self.drop_tables(self.connection)
         self.create_tables(self.connection)
+
+    def get_used_tags_from_database(self):
+        cursor = self.connection.cursor()
+        data = cursor.execute(
+            "SELECT tag FROM bookreferences \
+            UNION \
+            SELECT tag FROM webreferences"
+        ).fetchall()
+        return data
