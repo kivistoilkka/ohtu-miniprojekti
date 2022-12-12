@@ -1,7 +1,5 @@
-import colorama
 from colorama import Fore
-from getkey import getkey, keys
-from pynput import keyboard
+from getkey import getkey
 from ui.reference_reader import ReferenceReader
 from entities.reference import Reference
 
@@ -34,7 +32,7 @@ class UI:
 
         try:
             self.app.create_bibtex_file(data, filename)
-            print("Tiedosto luotu projektin juurihakemistoon!\n")
+            print(Fore.GREEN + "Tiedosto luotu projektin juurihakemistoon!\n")
         except ValueError as error:
             print(error, "\n")
 
@@ -45,7 +43,7 @@ class UI:
                         "Poista viite, paina 4",
                         "Sulje ohjelma, paina 5"]
 
-        print(self.text_to_bold("\nMitä haluat tehdä?"))
+        print(self.text_to_bold(Fore.WHITE + "\nMitä haluat tehdä?"))
         for instruction in instructions:
             print("\n" + instruction)
 
