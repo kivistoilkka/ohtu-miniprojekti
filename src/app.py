@@ -1,3 +1,5 @@
+from services.reference_service import ReferenceType
+
 class App:
     def __init__(self, connection, reference_service, db, bibtex_generator):
         self.connection = connection
@@ -14,8 +16,16 @@ class App:
     def create_bibtex_file(self, data, filename):
         self.bibtex_generator.create_bibtex_file(data, filename)
 
-    def delete_reference(self, key):
-        self.reference_service.delete_reference(key)
+    def delete_reference(self, bib_key):
+        data = self.key_used(bib_key)
+        if data:
+            if data == "bookreference":
+                return self.reference_service.delete_reference(bib_key, ReferenceType.Book)
+            elif data == "webreference":
+                return self.reference_service.delete_reference(bib_key, ReferenceType.Website)
+            raise ValueError("Virhe viitteen taulun tiedossa")
+        else:
+            raise ValueError("Viitettä ei löytynyt")
 
     def key_used(self, bib_key) -> str:
         data = self.db.key_used(bib_key)
@@ -34,3 +44,14 @@ class App:
             tags.append(tag[0])
 
         return tags
+
+    def get_reference(self, bib_key):
+        data = self.key_used(bib_key)
+        if data:
+            if data == "bookreference":
+                return self.reference_service.get_reference(bib_key, ReferenceType.Book)
+            elif data == "webreference":
+                return self.reference_service.get_reference(bib_key, ReferenceType.Website)
+            raise ValueError("Virhe viitteen taulun tiedossa")
+        else:
+            raise ValueError("Viitettä ei löytynyt")

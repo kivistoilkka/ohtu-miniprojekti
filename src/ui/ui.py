@@ -119,11 +119,12 @@ class UI:
 
     def del_ref(self):
         key = input("\nAnna avain:")
-
-        print(self._get_ref_to_delete(key))
-
+        try:
+            print(self._get_ref_to_delete(key))
+        except Exception as error:
+            print(error)
+            return
         answer = input("Haluatko varmasti poistaa viitteen?(kyllä k/en e)\n")
-
         if answer == "k":
             result = self.app.delete_reference(key)
             if result:
@@ -131,13 +132,8 @@ class UI:
             else:
                 print("Viitteen poisto ei onnistunut")
 
-    def _get_ref_to_delete(self, key):
-        refs = self.app.get_all_references()
-        data = refs["book_references"] + refs["web_references"]
-
-        for ref in data:
-            if key == ref.bib_key:
-                return str(ref)
+    def _get_ref_to_delete(self, bib_key):
+        return str(self.app.get_reference(bib_key))
 
     def text_to_bold(self, text):
         return "\033[1m" + text + "\033[0m"
