@@ -62,9 +62,9 @@ class UI:
         tags = self.app.get_tags()
         
         tag_string = ""
-        for tag in tags[:-1]:
+        for tag in tags:
             tag_string += tag + ', '
-        tag_string += tags[-1]
+        tag_string[:-2]
     
         tag = input(
             f"Haluatko suodattaa listaa tagin perusteella? Syötä tagi tai jätä tyhjäksi. \n Tagit: {tag_string} ")

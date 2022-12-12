@@ -35,10 +35,6 @@ class BookReference:
         return self.__tag
 
     def __str__(self) -> str:
-<<<<<<< HEAD:src/entities/book_reference.py
-        return f"{self.__author}: {self.__title} ({self.__year}), {self.__publisher}. \
-BibTeX key: {self.__bib_key} | Tag: {self.__tag}"
-=======
 
         author = self.__author
         title = self.__title
@@ -52,6 +48,5 @@ BibTeX key: {self.__bib_key} | Tag: {self.__tag}"
                 publisher = publisher[:11] + "..."
 
         return f"\n {self.text_to_bold('Author')}: {self.__author:15} | {self.text_to_bold('Title')}: {self.__title:15} | {self.text_to_bold('year')}: {self.__year:4} \
-    | {self.text_to_bold('Publisher')}: {self.__publisher:15} | {self.text_to_bold('key')}: {self.__bib_key} \n"
+    | {self.text_to_bold('Publisher')}: {self.__publisher:15} | {self.text_to_bold('key')}: {self.__bib_key} | {self.text_to_bold('tag')}: {self.__tag} \n"
                     
->>>>>>> uivaritus:src/entities/reference.py
