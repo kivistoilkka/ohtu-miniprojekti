@@ -10,27 +10,33 @@ class BibtexGeneratorService:
             filename += ".bib"
 
         with open(filename, "w") as file:
-            for ref in refs:
-                bib_key = ref.bib_key
-                author = BibtexGeneratorService._replace_scandinavic_characters(
-                    ref.author)
-                title = BibtexGeneratorService._replace_scandinavic_characters(
-                    ref.title)
-                publisher = BibtexGeneratorService._replace_scandinavic_characters(
-                    ref.publisher)
-                year = ref.year
+            for ref_type in refs.values():
+                for ref in ref_type:
+                    bib_key = ref.bib_key
+                    author = BibtexGeneratorService._replace_scandinavic_characters(
+                        ref.author)
+                    title = BibtexGeneratorService._replace_scandinavic_characters(
+                        ref.title)
+                    publisher = BibtexGeneratorService._replace_scandinavic_characters(
+                        ref.publisher)
+                    year = ref.year
 
-                BibtexGeneratorService._write_ref_to_bibtex_file(
-                    file, bib_key, author, title, publisher, year)
+                    BibtexGeneratorService._write_ref_to_bibtex_file(
+                        file, bib_key, author, title, publisher, year)
 
     @staticmethod
     def _replace_scandinavic_characters(string: str):
-        string = string.replace("å", "{\\aa}")
-        string = string.replace("Å", "{\\aA}")
-        string = string.replace("ä", '{\\"a}')
-        string = string.replace("Ä", '{\\"A}')
-        string = string.replace("ö", '{\\"o}')
-        string = string.replace("Ö", '{\\"O}')
+        replacements = {
+            "å": "{\\aa}",
+            "Å": "{\\aA}",
+            "ä": '{\\"a}',
+            "Ä": '{\\"A}',
+            "ö": '{\\"o}',
+            "Ö": '{\\"O}'
+        }
+
+        for key, value in replacements.items():
+            string = string.replace(key, value)
         return string
 
     @staticmethod

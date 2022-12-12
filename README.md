@@ -59,3 +59,4 @@ poetry run invoke format
 * Ohjelmiston lähdekoodi ja testien tilanne on nähtävissä GitHubissa, ja README-tiedostossa on nähtävillä jatkuvan integraation (GitHub Actions) tilanne
 * Luokat, metodit ja muuttujat on nimetty järkevästi ja noudattavat määriteltyjä Pylint-sääntöjä
 * Sovellus on laadittu repository-suunnittelumallia noudattaen
+
