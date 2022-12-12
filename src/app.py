@@ -27,4 +27,10 @@ class App:
         return self.reference_service.get_references_by_tag(tag)
 
     def get_tags(self):
-        return self.db.get_used_tags_from_database()
+        data = self.db.get_used_tags_from_database()
+        tags = []
+        
+        for tag in data:
+            tags.append(tag[0])
+
+        return tags
