@@ -25,7 +25,7 @@ class UI:
     def create_file(self):
         filename = input("\nMinkä nimisen tiedoston haluat luoda? ")
 
-        data = self.app.get_all_book_references() + self.app.get_all_web_references()
+        data = self.app.get_all_references()
 
         try:
             self.app.create_bibtex_file(data, filename)
