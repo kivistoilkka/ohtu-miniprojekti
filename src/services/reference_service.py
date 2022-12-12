@@ -3,7 +3,7 @@ from entities.book_reference import BookReference
 from entities.web_reference import WebReference
 
 class ReferenceType(Enum):
-    Book = "book",
+    Book = "book"
     Website = "website"
 
 class ReferenceService:
@@ -18,7 +18,7 @@ class ReferenceService:
             if ref_type == ReferenceType.Book:
                 self.book_repo.add_to_table(fixed_data)
                 return True
-            elif ref_type == ReferenceType.Website:
+            if ref_type == ReferenceType.Website:
                 self.web_repo.add_to_table(fixed_data)
                 return True
             return False
@@ -78,7 +78,7 @@ class ReferenceService:
         if ref_type == ReferenceType.Book:
             self.book_repo.delete_from_table(bib_key)
             return True
-        elif ref_type == ReferenceType.Website:
+        if ref_type == ReferenceType.Website:
             self.web_repo.delete_from_table(bib_key)
             return True
         return False
@@ -86,6 +86,6 @@ class ReferenceService:
     def get_reference(self, bib_key, ref_type):
         if ref_type == ReferenceType.Book:
             return self.book_repo.get_reference(bib_key)
-        elif ref_type == ReferenceType.Website:
+        if ref_type == ReferenceType.Website:
             return self.web_repo.get_reference(bib_key)
         raise ValueError("Virheellinen viitteen tyyppi")
