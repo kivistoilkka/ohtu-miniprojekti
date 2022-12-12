@@ -6,7 +6,7 @@ class BibtexGeneratorService:
         # Raise an error if all the reference lists are empty
         if not any(refs.values()):
             raise ValueError(
-                "Lisättyjä viitteitä ei ole, joten BibTeX-tiedostoa ei voi luoda!")
+                 "Lisättyjä viitteitä ei ole, joten BibTeX-tiedostoa ei voi luoda!")
         if not filename.endswith(".bib"):
             filename += ".bib"
 
@@ -38,9 +38,8 @@ class BibtexGeneratorService:
                         BibtexGeneratorService._write_web_ref_to_bibtex_file(
                             file, bib_key, author, title, url, year)
                 else:
-                    raise ValueError(
-                        "Vain kirja- ja verkkosivuviitteet ovat sallittuja!")
-
+                    raise ValueError("Vain kirja- ja verkkosivuviitteet ovat sallittuja!")
+                
     @staticmethod
     def _replace_scandinavic_characters(string: str):
         replacements = {

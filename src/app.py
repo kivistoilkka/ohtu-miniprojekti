@@ -1,6 +1,5 @@
 from services.reference_service import ReferenceType
 
-
 class App:
     def __init__(self, connection, reference_service, db, bibtex_generator):
         self.connection = connection

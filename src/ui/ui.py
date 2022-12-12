@@ -3,7 +3,6 @@ from getkey import getkey
 from ui.reference_reader import ReferenceReader
 from services.reference_service import ReferenceType
 
-
 class UI:
     def __init__(self, app):
         self.app = app
@@ -97,8 +96,7 @@ class UI:
         title_bar1 = f'{self.text_to_bold("Author")}                    {self.text_to_bold("Title")}                                         {self.text_to_bold("Year")} {self.text_to_bold("URL")}                       {self.text_to_bold("Key")}   {self.text_to_bold("Tagi")}'
         title_bar2 = "------------------------- --------------------------------------------- ---- ------------------------- ----- ----------"
 
-        print(self.text_to_bold(
-            f"Verkkosivuviitteet:\n{title_bar1}\n{title_bar2}"))
+        print(self.text_to_bold(f"Verkkosivuviitteet:\n{title_bar1}\n{title_bar2}"))
 
         for ref in web_data_sorted:
             self.print_web_ref(ref)
@@ -112,8 +110,7 @@ class UI:
             key = ref_list[4]
             key_used_in_table = self.app.key_used(key)
             if key_used_in_table:
-                print(
-                    f"Valitsemasi avain on jo käytössä taulussa {key_used_in_table}")
+                print(f"Valitsemasi avain on jo käytössä taulussa {key_used_in_table}")
             else:
                 self.app.add_reference(ref_list, ReferenceType.Book)
         elif answer == "2":
@@ -121,8 +118,7 @@ class UI:
             key = ref_list[4]
             key_used_in_table = self.app.key_used(key)
             if key_used_in_table:
-                print(
-                    f"Valitsemasi avain on jo käytössä taulussa {key_used_in_table}")
+                print(f"Valitsemasi avain on jo käytössä taulussa {key_used_in_table}")
             else:
                 self.app.add_reference(ref_list, ReferenceType.Website)
 
@@ -166,8 +162,7 @@ class UI:
         if len(tag) > 15:
             tag = tag[:15] + "..."
 
-        print(
-            f"{author:25} {title:45} {ref.year:4} {publisher:25} {bib_key:7} {tag:10}\n")
+        print(f"{author:25} {title:45} {ref.year:4} {publisher:25} {bib_key:7} {tag:10}\n")
 
     def print_web_ref(self, ref):
         author = ref.author

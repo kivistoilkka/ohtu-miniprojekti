@@ -80,5 +80,6 @@ class Database:
             WHERE bib_key=? \
             UNION \
             SELECT 'webreference' FROM webreferences \
-            WHERE bib_key=?", (bib_key, bib_key,)).fetchone()
+            WHERE bib_key=?"
+        , (bib_key, bib_key,)).fetchone()
         return data

@@ -42,14 +42,11 @@ class TestBookReference(unittest.TestCase):
 
     def test_create_bibtex_file_raises_an_exception_if_there_are_no_references(self):
         with self.assertRaises(ValueError) as cm:
-            self.bibtex_generator.create_bibtex_file(
-                {"book_references": [], "web_references": []}, "test.bib")
-        self.assertEqual(str(
-            cm.exception), "Lisättyjä viitteitä ei ole, joten BibTeX-tiedostoa ei voi luoda!")
+            self.bibtex_generator.create_bibtex_file({"book_references": [], "web_references": []}, "test.bib")
+        self.assertEqual(str(cm.exception), "Lisättyjä viitteitä ei ole, joten BibTeX-tiedostoa ei voi luoda!")
 
     def test_create_bibtex_file_raises_an_exception_if_called_with_other_than_book_or_web_references(self):
         with self.assertRaises(ValueError) as cm:
             self.bibtex_generator.create_bibtex_file({"book_references": [], "article_references": [BookReference(
-                "Yrjänä Änkyräinen", "Test it to the limit", 2022, "TestPublishing", "test22", "")], "web_references": []}, "test.bib")
-        self.assertEqual(str(cm.exception),
-                         "Vain kirja- ja verkkosivuviitteet ovat sallittuja!")
+            "Yrjänä Änkyräinen", "Test it to the limit", 2022, "TestPublishing", "test22", "")], "web_references": []}, "test.bib")
+        self.assertEqual(str(cm.exception), "Vain kirja- ja verkkosivuviitteet ovat sallittuja!")

@@ -15,18 +15,15 @@ from entities.book_reference import BookReference
 class ReferenceLibrary:
     def __init__(self):
         self.db = Database(testing_environment=True)
-        self.book_reference_repo = BookReferenceRepo(
-            self.db.get_database_connection())
+        self.book_reference_repo = BookReferenceRepo(self.db.get_database_connection())
         validator = InputValidator()
-        self.web_reference_repo = WebReferenceRepo(
-            self.db.get_database_connection())
+        self.web_reference_repo = WebReferenceRepo(self.db.get_database_connection())
         self.reference_service = ReferenceService(
             self.book_reference_repo, self.web_reference_repo, validator
         )
         self.reference_reader = ReferenceReader()
         self.bibtex_generator = BibtexGeneratorService()
-        app = App(self.db.get_database_connection(),
-                  self.reference_service, self.db, self.bibtex_generator)
+        app = App(self.db.get_database_connection(), self.reference_service, self.db, self.bibtex_generator)
         self.ui = StubUI(app, self.reference_service)
 
     def add_reference(self, author, title, year, publ, key, tag, ref_type_str):
@@ -38,7 +35,7 @@ class ReferenceLibrary:
         # Logiikka tässä on, että voimme tarkistaa, onko tietokannassa nyt haluttu
         # Viite tarkistamalla datan pituuden
         data = self.ui.reference_service.get_all_references()
-        data_as_list = data["book_references"] + data["web_references"]
+        data_as_list = data["book_references"] +  data["web_references"]
         if len(data_as_list) != int(length):
             raise AssertionError(
                 f"There's something wrong, {len(data)} != {length}")

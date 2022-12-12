@@ -8,8 +8,7 @@ class TestBookReference(unittest.TestCase):
         self.db = Database(testing_environment=True)
         self.connection = self.db.get_database_connection()
         self.db.reset_database()
-        self.web_reference_repo = WebReferenceRepo(
-            self.db.get_database_connection())
+        self.web_reference_repo = WebReferenceRepo(self.db.get_database_connection())
 
     def test_add_to_table_adds_data_to_database_without_tag(self):
         data = ["Test Author", "Test it to the limit",
@@ -34,8 +33,7 @@ class TestBookReference(unittest.TestCase):
         data = ["Test Author", "Test it to the limit",
                 2022, "https://www.helsinki.fi/", "test22", ""]
         self.web_reference_repo.add_to_table(data)
-        self.assertEqual(self.web_reference_repo.get_reference(
-            data[-2])[-2], data[-2])
+        self.assertEqual(self.web_reference_repo.get_reference(data[-2])[-2], data[-2])
 
     def test_get_data_by_tag_returns_right_data(self):
         data = ["Test Author", "Test it to the limit",
@@ -44,5 +42,4 @@ class TestBookReference(unittest.TestCase):
         data = ["TAuthor", "Test it to the limitttttttttt",
                 1999, "https://www.helsinki.fi/", "test32", ""]
         self.web_reference_repo.add_to_table(data)
-        self.assertEqual(
-            len(self.web_reference_repo.get_data_by_tag("testitagi")), 1)
+        self.assertEqual(len(self.web_reference_repo.get_data_by_tag("testitagi")), 1)
