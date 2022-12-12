@@ -1,6 +1,7 @@
 import colorama
 from colorama import Fore
 from getkey import getkey, keys
+from pynput import keyboard
 from ui.reference_reader import ReferenceReader
 from entities.reference import Reference
 
@@ -63,13 +64,15 @@ class UI:
 
     def view_ref(self):
         sort_or_not = input("Haluatko järjestää listan?(kyllä/ei)")
-
+    
         if sort_or_not == 'kyllä':
-            sorting_key = input(
+            print(
                 "\nMillä perusteella haluat järjestää listan? \nVuosiluvun perusteella, paina 1 \nLisäysjärjestyksessä, paina 2 \n")
-            order = input(
+            
+            sorting_key = getkey() 
+            print(
                 "\nHaluatko listan \nNousevassa järjestyksessä, paina 1 \nLaskevassa järjestyksessä, paina 2 \n")
-
+            order = getkey()
             data = self.app.get_all_references()
             data = self.sort_data(data, sorting_key, order)
 
