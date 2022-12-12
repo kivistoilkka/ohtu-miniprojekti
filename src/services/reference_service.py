@@ -91,7 +91,7 @@ class ReferenceService:
             return True
         return False
 
-    def get_tags(self):
-        book_tags = self.book_repo.get_tags()
-        web_tags = self.web_repo.get_tags()
-        return book_tags.union(web_tags)
+    # def get_tags(self):
+    #     book_tags = self.book_repo.get_tags()
+    #     web_tags = self.web_repo.get_tags()
+    #     return book_tags.union(web_tags)
