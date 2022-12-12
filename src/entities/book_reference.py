@@ -26,7 +26,7 @@ class BookReference:
     @property
     def bib_key(self):
         return self.__bib_key
-    
+
     def text_to_bold(self, text):
         return "\033[1m" + text + "\033[0m"
 
@@ -41,12 +41,11 @@ class BookReference:
         publisher = self.__publisher
 
         if len(author) > 15:
-                author = author[:11] + "..."
+            author = author[:11] + "..."
         if len(title) > 15:
-                title = title[:11] + "..."
+            title = title[:11] + "..."
         if len(publisher) > 15:
-                publisher = publisher[:11] + "..."
+            publisher = publisher[:11] + "..."
 
         return f"\n {self.text_to_bold('Author')}: {self.__author:15} | {self.text_to_bold('Title')}: {self.__title:15} | {self.text_to_bold('year')}: {self.__year:4} \
     | {self.text_to_bold('Publisher')}: {self.__publisher:15} | {self.text_to_bold('key')}: {self.__bib_key} | {self.text_to_bold('tag')}: {self.__tag} \n"
-                    

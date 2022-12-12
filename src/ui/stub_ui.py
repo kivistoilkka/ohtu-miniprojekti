@@ -1,5 +1,6 @@
 from services.reference_service import ReferenceType
 
+
 class StubUI:
     def __init__(self, app, ref_service) -> None:
         self.app = app
@@ -33,7 +34,7 @@ class StubUI:
             title = ref.title
 
             if type == ReferenceType.Book:
-                publisher_or_url = ref.publisher 
+                publisher_or_url = ref.publisher
             elif type == ReferenceType.Website:
                 publisher_or_url = ref.url
 
@@ -52,4 +53,5 @@ class StubUI:
         if ref_type_str == "book_reference":
             self.reference_service.add_reference(ref_list, ReferenceType.Book)
         elif ref_type_str == "web_reference":
-            self.reference_service.add_reference(ref_list, ReferenceType.Website)
+            self.reference_service.add_reference(
+                ref_list, ReferenceType.Website)

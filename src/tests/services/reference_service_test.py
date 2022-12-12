@@ -30,7 +30,7 @@ class TestReferenceService(unittest.TestCase):
 
     def test_valid_book_reference_can_be_added(self):
         book_repo = StubRepo(["Test Author", "Test it to the limit",
-                        2022, "TestPublishing", "test22", ""], [])
+                              2022, "TestPublishing", "test22", ""], [])
         web_repo = StubRepo([], [])
         validator = StubValidator()
         ref_service = ReferenceService(book_repo, web_repo, validator)
@@ -65,7 +65,7 @@ class TestReferenceService(unittest.TestCase):
         ref_service = ReferenceService(book_repo, web_repo, validator)
         expected_list = [
             BookReference("Test Author", "Test it to the limit",
-                      2022, "TestPublishing", "test22", ""),
+                          2022, "TestPublishing", "test22", ""),
             BookReference(
                 "Stanley", "This is a story about a man named Stanley", 2013, "GC", "stan13", "")
         ]

@@ -8,7 +8,8 @@ class TestBookReference(unittest.TestCase):
         self.db = Database(testing_environment=True)
         self.connection = self.db.get_database_connection()
         self.db.reset_database()
-        self.book_reference = BookReferenceRepo(self.db.get_database_connection())
+        self.book_reference = BookReferenceRepo(
+            self.db.get_database_connection())
 
     def test_add_to_table_adds_data_to_database_without_tag(self):
         data = ["Test Author", "Test it to the limit",
