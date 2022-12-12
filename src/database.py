@@ -72,3 +72,14 @@ class Database:
             SELECT tag FROM webreferences"
         ).fetchall()
         return data
+
+    def key_used(self, bib_key) -> str:
+        cursor = self.connection.cursor()
+        data = cursor.execute(
+            "SELECT 'bookreference' FROM bookreferences \
+            WHERE bib_key=? \
+            UNION \
+            SELECT 'webreference' FROM webreferences \
+            WHERE bib_key=?"
+        , (bib_key, bib_key,)).fetchone()
+        return data

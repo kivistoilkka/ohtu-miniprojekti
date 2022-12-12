@@ -68,16 +68,16 @@ class ReferenceLibrary:
         self.ui.view_ref(sort_key, order, tag, type)
 
     def create_bibtex_file(self, author, title, year, publisher, bib_key, tag, filename):
-        data = {'bookreference': [BookReference(
+        data = {'book_references': [BookReference(
             author, title, int(year), publisher, bib_key, tag)]}
         self.bibtex_generator.create_bibtex_file(data, filename)
 
     def data_in_bibtex_file_should_be(self, filename):
         FILE_LOCATION = pathlib.Path(__file__).parent.parent.joinpath(filename)
 
-        content = """@Book{test01,\n  author     = "Testaaja1",\n  title      = "Testikirja1",\n  publisher  = "Unigrafia",\n  year       = 2001\n}\n\n"""
+        content = """@book{test01,\n  author     = "Testaaja1",\n  title      = "Testikirja1",\n  publisher  = "Unigrafia",\n  year       = 2001\n}\n\n"""
 
         if not content == FILE_LOCATION.open().read():
             raise AssertionError(
-                f"File {content} does not have correct content {FILE_LOCATION.open().read()}"
+                f"File does not have correct content {content}, content was {FILE_LOCATION.open().read()}"
             )
