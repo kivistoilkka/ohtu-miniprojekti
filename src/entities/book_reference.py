@@ -27,9 +27,6 @@ class BookReference:
     def bib_key(self):
         return self.__bib_key
 
-    def text_to_bold(self, text):
-        return "\033[1m" + text + "\033[0m"
-
     @property
     def tag(self):
         return self.__tag
