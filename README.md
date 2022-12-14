@@ -36,6 +36,8 @@ viitteitä komennolla 4. Ohjelmasta poistutaan komennolla 5.
 
 [Robot Frameworkin tiedostot](https://github.com/kivistoilkka/ohtu-miniprojekti/tree/main/src/tests/robot)
 
+[Lisenssi](https://github.com/kivistoilkka/ohtu-miniprojekti/blob/main/LICENSE.md)
+
 ## Backlogit
 
 [Product backlog](https://github.com/users/kivistoilkka/projects/1)
