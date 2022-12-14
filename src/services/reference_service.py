@@ -85,7 +85,9 @@ class ReferenceService:
 
     def get_reference(self, bib_key, ref_type):
         if ref_type == ReferenceType.Book:
-            return self.book_repo.get_reference(bib_key)
+            book = self.book_repo.get_reference(bib_key)
+            return BookReference(book[0],book[1],book[2],book[3],book[4],book[5])
         if ref_type == ReferenceType.Website:
-            return self.web_repo.get_reference(bib_key)
+            web = self.web_repo.get_reference(bib_key)
+            return WebReference(web[0], web[1], web[2], web[3], web[4], web[5])
         raise ValueError("Virheellinen viitteen tyyppi")
