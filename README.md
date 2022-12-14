@@ -22,22 +22,6 @@ poetry run invoke build
 ```bash
 poetry run invoke run
 ```
-- Ohjelman testaus:
-```bash
-poetry run invoke test
-```
-- Testikattavuusraportin luominen:
-```bash
-poetry run invoke coverage-report
-```
-- Robot Framework -testit:
-```bash
-poetry run robot src
-```
-- Pylint-tarkistus:
-```bash
-poetry run invoke lint
-```
 
 
 Ohjelmassa voi tällä hetkellä luoda BibTex-tiedoston komennolla 1, tarkastella
