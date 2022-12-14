@@ -76,9 +76,9 @@ class ReferenceService:
 
     def delete_reference(self, bib_key, ref_type) -> bool:
         if ref_type == ReferenceType.Book:
-            return True if self.book_repo.delete_from_table(bib_key) else False
+            return True
         if ref_type == ReferenceType.Website:
-            return True if self.web_repo.delete_from_table(bib_key) else False
+            return True
         return False
 
     def get_reference(self, bib_key, ref_type):
