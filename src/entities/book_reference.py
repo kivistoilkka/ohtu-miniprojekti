@@ -35,17 +35,5 @@ class BookReference:
         return self.__tag
 
     def __str__(self) -> str:
-
-        author = self.__author
-        title = self.__title
-        publisher = self.__publisher
-
-        if len(author) > 15:
-            author = author[:11] + "..."
-        if len(title) > 15:
-            title = title[:11] + "..."
-        if len(publisher) > 15:
-            publisher = publisher[:11] + "..."
-
-        return f"\n {self.text_to_bold('Author')}: {self.__author:15} | {self.text_to_bold('Title')}: {self.__title:15} | {self.text_to_bold('year')}: {self.__year:4} \
-    | {self.text_to_bold('Publisher')}: {self.__publisher:15} | {self.text_to_bold('key')}: {self.__bib_key} | {self.text_to_bold('tag')}: {self.__tag} \n"
+        return f"{self.__author}: {self.__title} ({self.__year}). ({self.__publisher}) \
+BibTeX key: {self.__bib_key} | Tag: {self.__tag}"
