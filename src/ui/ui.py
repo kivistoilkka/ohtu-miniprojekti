@@ -194,9 +194,9 @@ class UI:
             title = title[:42] + "..."
         if len(url) > 25:
             url = url[:22] + "..."
-        if len(bib_key) > 8:
+        if len(bib_key) > 11:
             bib_key = bib_key[:8] + "..."
         if len(tag) > 15:
-            tag = tag[:15] + "..."
+            tag = tag[:12] + "..."
 
-        print(f"{author:25} {title:45} {ref.year:4} {url:25} {bib_key:7} {tag:10}\n")
+        print(f"{author:25} {title:45} {ref.year:4} {url:25} {bib_key:11} {tag:15}\n")
