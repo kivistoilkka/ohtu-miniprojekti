@@ -18,9 +18,8 @@ class Database:
     def drop_tables(self, connection):
         cursor = connection.cursor()
 
-        cursor.execute('''
-            drop table if exists bookreferences;
-        ''')
+        cursor.execute("drop table if exists bookreferences")
+        cursor.execute("drop table if exists webreferences")
 
         connection.commit()
 
@@ -34,8 +33,21 @@ class Database:
                 title text,
                 year integer,
                 publisher text,
-                bib_key text unique
-            );
+                bib_key text unique,
+                tag text
+            )
+        ''')
+
+        cursor.execute('''
+            create table webreferences (
+                id integer primary key,
+                author text,
+                title text,
+                year integer,
+                url text,
+                bib_key text unique,
+                tag text
+            )
         ''')
 
         connection.commit()
@@ -51,3 +63,23 @@ class Database:
     def reset_database(self):
         self.drop_tables(self.connection)
         self.create_tables(self.connection)
+
+    def get_used_tags_from_database(self):
+        cursor = self.connection.cursor()
+        data = cursor.execute(
+            "SELECT tag FROM bookreferences \
+            UNION \
+            SELECT tag FROM webreferences"
+        ).fetchall()
+        return data
+
+    def key_used(self, bib_key) -> str:
+        cursor = self.connection.cursor()
+        data = cursor.execute(
+            "SELECT 'bookreference' FROM bookreferences \
+            WHERE bib_key=? \
+            UNION \
+            SELECT 'webreference' FROM webreferences \
+            WHERE bib_key=?"
+        , (bib_key, bib_key,)).fetchone()
+        return data

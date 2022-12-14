@@ -19,8 +19,21 @@ tietokannan haluaa tyhjentää.
 poetry run invoke build
 ```
 
-Käynnistä ohjelma
-
+- Ohjelman testaus:
+```bash
+poetry run invoke test
+```
+- Testikattavuusraportin luominen:
+```bash
+poetry run invoke coverage-report
+```
+- Robot Framework -testit:
+```bash
+poetry run robot src
+```
+- Pylint-tarkistus:
+```bash
+poetry run invoke lint
 ```
 poetry run invoke run
 ```
@@ -35,10 +48,16 @@ viitteitä komennolla 4. Ohjelmasta poistutaan komennolla 5.
 
 [Definition of Done](./docs/definition_of_done.md)
 
-[Robot Frameworkin tiedostot](https://github.com/kivistoilkka/ohtu-miniprojekti/tree/main/src/tests)
+[Robot Frameworkin tiedostot](https://github.com/kivistoilkka/ohtu-miniprojekti/tree/main/src/tests/robot)
 
 ## Backlogit
 
 [Product backlog](https://github.com/users/kivistoilkka/projects/1)
 
 [Sprint backlog](https://docs.google.com/spreadsheets/d/1ucSjkzkqewl7hF1RMTIi3dRhN4YwD-RomEDwHivYZaI/)
+
+* User storyja vastaavat hyväksymiskriteerit dokumentoidaan Robot frameworkin syntaksilla, ja Robot-testitiedostoihin on linkki README:stä
+* Toteutetun koodin testikattavuus on n. 70 % ja toteutetut yksikkötestit testaavat järkeviä tapauksia
+* Ohjelmiston lähdekoodi ja testien tilanne on nähtävissä GitHubissa, ja README-tiedostossa on nähtävillä jatkuvan integraation (GitHub Actions) tilanne
+* Luokat, metodit ja muuttujat on nimetty järkevästi ja noudattavat määriteltyjä Pylint-sääntöjä
+* Sovellus on laadittu repository-suunnittelumallia noudattaen
