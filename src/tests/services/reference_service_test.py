@@ -15,13 +15,14 @@ class StubRepo:
 
     def get_data(self):
         return self.database_content
-
+    
     def delete_from_table(self, key):
-        for i in range(len(self.database_content)):
-            if self.database_content[i][5] == key:
-                self.database_content.pop(i)
-                return True
-        return False
+        filter(lambda ref: ref[4] != key, self.database_content)
+    
+    def get_reference(self, key):
+        for ref in self.database_content:
+            if key in ref:
+                return ref
 
 
 class StubValidator:
@@ -46,6 +47,29 @@ class TestReferenceService(unittest.TestCase):
             ["Test Author", "Test it to the limit", 2022, "TestPublishing", "test22", ""], ReferenceType.Book)
         self.assertTrue(result)
         self.assertEqual(len(book_repo.database_content), 1)
+    
+    def test_book_reference_with_tag_can_be_added(self):
+        book_repo = StubRepo(["Test Author", "Test it to the limit",
+                        2022, "TestPublishing", "test22", "testtag"], [])
+        web_repo = StubRepo([], [])
+        validator = StubValidator()
+        ref_service = ReferenceService(book_repo, web_repo, validator)
+        result = ref_service.add_reference(
+            ["Test Author", "Test it to the limit", 2022, "TestPublishing", "test22", "testtag"], ReferenceType.Book)
+        self.assertTrue(result)
+        self.assertEqual(len(book_repo.database_content), 1)
+
+    def test_valid_web_reference_can_be_added(self):
+        book_repo = StubRepo([],[])
+        web_repo = StubRepo(["Test Web Author", "Test it to the limit",
+                        2022, "testurl.com", "test22", ""], [])
+        validator = StubValidator()
+        ref_service = ReferenceService(book_repo, web_repo, validator)
+        result = ref_service.add_reference(
+            ["Test Web Author", "Test it to the limit", 2022, "testurl.com", "test22", ""], ReferenceType.Website)
+        self.assertTrue(result)
+        self.assertEqual(len(web_repo.database_content), 1)
+
 
     def test_all_references_from_database_with_one_book_reference_can_be_fetched(self):
         book_repo = StubRepo([], [
@@ -82,16 +106,6 @@ class TestReferenceService(unittest.TestCase):
         for i, ref in enumerate(book_result):
             self.assertEqual(str(ref), str(expected_list[i]))
 
-    def test_valid_website_reference_can_be_added(self):
-        book_repo = StubRepo([], [])
-        web_repo = StubRepo(["Test Author", "Test it to the limit",
-                        2022, "TestPublishing", "test22", ""], [])
-        validator = StubValidator()
-        ref_service = ReferenceService(book_repo, web_repo, validator)
-        result = ref_service.add_reference(
-            ["Test Author", "Test it to the limit", 2022, "TestPublishing", "test22", ""], ReferenceType.Website)
-        self.assertTrue(result)
-        self.assertEqual(len(web_repo.database_content), 1)
 
     def test_book_reference_can_be_deleted(self):
         book_repo = StubRepo([], [
