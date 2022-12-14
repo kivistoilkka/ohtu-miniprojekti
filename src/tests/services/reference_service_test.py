@@ -1,6 +1,7 @@
 import unittest
 from services.reference_service import ReferenceService, ReferenceType
 from entities.book_reference import BookReference
+from entities.web_reference import WebReference
 
 
 class StubRepo:
@@ -14,6 +15,13 @@ class StubRepo:
 
     def get_data(self):
         return self.database_content
+
+    def delete_from_table(self, key):
+        for i in range(len(self.database_content)):
+            if self.database_content[i][5] == key:
+                self.database_content.pop(i)
+                return True
+        return False
 
 
 class StubValidator:
@@ -72,4 +80,79 @@ class TestReferenceService(unittest.TestCase):
         result = ref_service.get_all_references()
         book_result = result["book_references"]
         for i, ref in enumerate(book_result):
+            self.assertEqual(str(ref), str(expected_list[i]))
+
+    def test_valid_website_reference_can_be_added(self):
+        book_repo = StubRepo([], [])
+        web_repo = StubRepo(["Test Author", "Test it to the limit",
+                        2022, "TestPublishing", "test22", ""], [])
+        validator = StubValidator()
+        ref_service = ReferenceService(book_repo, web_repo, validator)
+        result = ref_service.add_reference(
+            ["Test Author", "Test it to the limit", 2022, "TestPublishing", "test22", ""], ReferenceType.Website)
+        self.assertTrue(result)
+        self.assertEqual(len(web_repo.database_content), 1)
+
+    def test_book_reference_can_be_deleted(self):
+        book_repo = StubRepo([], [
+            (1, "Test Author", "Test it to the limit",
+             2022, "TestPublishing", "test22", ""),
+            (2, "Stanley", "This is a story about a man named Stanley",
+             2013, "GC", "stan13", "")
+        ])
+        validator = StubValidator()
+        web_repo = StubRepo([], [])
+        ref_service = ReferenceService(book_repo, web_repo, validator)
+        expected = BookReference(
+            "Stanley", "This is a story about a man named Stanley", 2013, "GC", "stan13", ""
+        )
+        result = ref_service.delete_reference("test22", ReferenceType.Book)
+        data = ref_service.get_all_references()
+        book_data = data["book_references"]
+        self.assertTrue(result)
+        self.assertEqual(len(book_data), 1)
+        self.assertEqual(str(book_data[0]), str(expected))
+
+    def test_web_reference_can_be_deleted(self):
+        book_repo = StubRepo([], [])
+        web_repo = StubRepo([], [
+            (1, "Test Author", "Test it to the limit",
+             2022, "http", "test22", ""),
+            (2, "Stanley", "This is a story about a man named Stanley",
+             2013, "http", "stan13", "")
+        ])
+        validator = StubValidator()
+        ref_service = ReferenceService(book_repo, web_repo, validator)
+        expected = WebReference(
+            "Stanley", "This is a story about a man named Stanley", 2013, "http", "stan13", ""
+        )
+        result = ref_service.delete_reference("test22", ReferenceType.Website)
+        data = ref_service.get_all_references()
+        web_data = data["web_references"]
+        self.assertTrue(result)
+        self.assertEqual(len(web_data), 1)
+        self.assertEqual(str(web_data[0]), str(expected))
+
+    def test_deleting_missing_reference_returns_false(self):
+        book_repo = StubRepo([], [
+            (1, "Test Author", "Test it to the limit",
+             2022, "TestPublishing", "test22", ""),
+            (2, "Stanley", "This is a story about a man named Stanley",
+             2013, "GC", "stan13", "")
+        ])
+        validator = StubValidator()
+        web_repo = StubRepo([], [])
+        ref_service = ReferenceService(book_repo, web_repo, validator)
+        expected_list = [
+            BookReference("Test Author", "Test it to the limit",
+                2022, "TestPublishing", "test22", ""),
+            BookReference(
+                "Stanley", "This is a story about a man named Stanley", 2013, "GC", "stan13", "")
+        ]
+        result = ref_service.delete_reference("test99", ReferenceType.Book)
+        data = ref_service.get_all_references()
+        book_data = data["book_references"]
+        self.assertFalse(result)
+        self.assertEqual(len(book_data), 2)
+        for i, ref in enumerate(book_data):
             self.assertEqual(str(ref), str(expected_list[i]))
