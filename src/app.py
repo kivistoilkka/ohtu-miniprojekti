@@ -1,5 +1,6 @@
 from services.reference_service import ReferenceType
 
+
 class App:
     def __init__(self, connection, reference_service, db, bibtex_generator):
         self.connection = connection
@@ -40,7 +41,8 @@ class App:
         tags = []
 
         for tag in data:
-            tags.append(tag[0])
+            if tag[0] != "":
+                tags.append(tag[0])
 
         return tags
 
