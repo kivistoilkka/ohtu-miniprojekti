@@ -17,7 +17,7 @@ class StubRepo:
         return self.database_content
     
     def delete_from_table(self, key):
-        filter(lambda ref: ref[4] != key, self.database_content)
+        self.database_content = list(filter(lambda ref: ref[5] != key, self.database_content))
     
     def get_reference(self, key):
         for ref in self.database_content:
@@ -146,27 +146,3 @@ class TestReferenceService(unittest.TestCase):
         self.assertTrue(result)
         self.assertEqual(len(web_data), 1)
         self.assertEqual(str(web_data[0]), str(expected))
-
-    def test_deleting_missing_reference_returns_false(self):
-        book_repo = StubRepo([], [
-            (1, "Test Author", "Test it to the limit",
-             2022, "TestPublishing", "test22", ""),
-            (2, "Stanley", "This is a story about a man named Stanley",
-             2013, "GC", "stan13", "")
-        ])
-        validator = StubValidator()
-        web_repo = StubRepo([], [])
-        ref_service = ReferenceService(book_repo, web_repo, validator)
-        expected_list = [
-            BookReference("Test Author", "Test it to the limit",
-                2022, "TestPublishing", "test22", ""),
-            BookReference(
-                "Stanley", "This is a story about a man named Stanley", 2013, "GC", "stan13", "")
-        ]
-        result = ref_service.delete_reference("test99", ReferenceType.Book)
-        data = ref_service.get_all_references()
-        book_data = data["book_references"]
-        self.assertFalse(result)
-        self.assertEqual(len(book_data), 2)
-        for i, ref in enumerate(book_data):
-            self.assertEqual(str(ref), str(expected_list[i]))
