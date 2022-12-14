@@ -45,7 +45,7 @@ class StubUI:
                 publisher_or_url = publisher_or_url[:11] + "..."
 
             self.outputs.append(f"Author: {author:15} | Title: {title:15} | Year: {ref.year:4} \
-                | Publisher: {publisher_or_url:15} | Key: {ref.bib_key} \n"
+                | Publisher: {publisher_or_url:15} | Key: {ref.bib_key} | Tag: {ref.tag}\n"
                                 )
 
     def add_ref(self, ref_list, ref_type_str):
