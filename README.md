@@ -18,7 +18,10 @@ tietokannan haluaa tyhjentää.
 ```
 poetry run invoke build
 ```
-
+- Ohjelman käynnistys
+```bash
+poetry run invoke run
+```
 - Ohjelman testaus:
 ```bash
 poetry run invoke test
@@ -35,8 +38,7 @@ poetry run robot src
 ```bash
 poetry run invoke lint
 ```
-poetry run invoke run
-```
+
 
 Ohjelmassa voi tällä hetkellä luoda BibTex-tiedoston komennolla 1, tarkastella
 lisättyjä viitteitä komennolla 2, lisätä viitteitä komennolla 3 ja poistaa
