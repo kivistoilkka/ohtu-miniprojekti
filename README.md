@@ -44,3 +44,5 @@ viitteitä komennolla 4. Ohjelmasta poistutaan komennolla 5.
 
 [Sprint backlog](https://docs.google.com/spreadsheets/d/1ucSjkzkqewl7hF1RMTIi3dRhN4YwD-RomEDwHivYZaI/)
 
+## Raportti
+[Linkki raporttiin](./docs/report.md)
